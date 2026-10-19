@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  /* ── Exact logo colors ── */
+  --navy:        #001E5A;   /* dominant: circle, text, wordmark */
+  --navy-dark:   #000F3C;   /* deepest navy for footers/overlays */
+  --navy-mid:    #0F2470;   /* slightly lighter for hover states */
+  --red:         #D2003C;   /* ribbon / primary CTA */
+  --red-dark:    #A8002E;   /* red hover */
+  --yellow:      #FFE100;   /* sun / highlights / accents */
+  --yellow-dark: #D4B800;   /* yellow hover */
+  --green:       #00692D;   /* trees in logo / success states */
+  --green-light: #00783C;
+
+  /* ── UI supporting palette ── */
+  --white:       #FFFFFF;
+  --cream:       #FAFAF5;   /* warm off-white for section bg */
+  --gray-soft:   #F4F4F6;
+  --gray-border: #E2E2EA;
+  --charcoal:    #0D0D2B;   /* near-navy for body text */
+}
+
+body {
+  background: #ffffff;
+  color: var(--charcoal);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+html { scroll-behavior: smooth; }
+
+.section-pad { padding-top: 5rem; padding-bottom: 5rem; }
+
+.section-label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--red);
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: var(--navy);
+  line-height: 1.2;
+}

@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 380" fill="none">
+
+  <!-- ═══════════════════════════════ EMBLEM ═══════════════════════════════ -->
+
+  <!-- Outer navy circle border -->
+  <circle cx="180" cy="155" r="138" fill="white" stroke="#1B2A6B" stroke-width="6"/>
+  <!-- Inner circle border -->
+  <circle cx="180" cy="155" r="128" fill="white" stroke="#1B2A6B" stroke-width="2"/>
+
+  <!-- Sky yellow background (top half) -->
+  <clipPath id="topHalf">
+    <rect x="42" y="17" width="276" height="138"/>
+  </clipPath>
+  <circle cx="180" cy="155" r="126" fill="#F5C200" clip-path="url(#topHalf)"/>
+
+  <!-- Ground / green hills (bottom of sky area) -->
+  <ellipse cx="140" cy="152" rx="60" ry="18" fill="#4CAF50"/>
+  <ellipse cx="120" cy="156" rx="50" ry="14" fill="#2E7D32"/>
+
+  <!-- Sun (red circle with yellow) -->
+  <circle cx="220" cy="90" r="26" fill="#D42B1E"/>
+  <circle cx="220" cy="90" r="20" fill="#F5C200"/>
+
+  <!-- Sun rays -->
+  <g stroke="#D42B1E" stroke-width="3" stroke-linecap="round">
+    <line x1="220" y1="58" x2="220" y2="48"/>
+    <line x1="244" y1="66" x2="250" y2="58"/>
+    <line x1="252" y1="90" x2="262" y2="90"/>
+    <line x1="244" y1="114" x2="250" y2="122"/>
+    <line x1="196" y1="66" x2="190" y2="58"/>
+    <line x1="188" y1="90" x2="178" y2="90"/>
+    <line x1="196" y1="114" x2="190" y2="122"/>
+  </g>
+
+  <!-- Tree (left side) -->
+  <!-- Trunk -->
+  <rect x="117" y="140" width="7" height="22" fill="#5D4037"/>
+  <!-- Canopy layers -->
+  <ellipse cx="120" cy="136" rx="22" ry="18" fill="#2E7D32"/>
+  <ellipse cx="120" cy="122" rx="17" ry="14" fill="#388E3C"/>
+  <ellipse cx="120" cy="110" rx="12" ry="10" fill="#43A047"/>
+
+  <!-- Ground lines under tree -->
+  <path d="M78 158 Q120 148 165 155" stroke="#2E7D32" stroke-width="2.5" fill="none"/>
+  <path d="M85 163 Q125 153 162 160" stroke="#388E3C" stroke-width="1.5" fill="none"/>
+
+  <!-- Balance Scale (center) -->
+  <!-- Vertical pole -->
+  <line x1="185" y1="105" x2="185" y2="165" stroke="#1B2A6B" stroke-width="3"/>
+  <!-- Horizontal beam -->
+  <line x1="155" y1="118" x2="215" y2="118" stroke="#1B2A6B" stroke-width="2.5"/>
+  <!-- Left pan string -->
+  <line x1="160" y1="118" x2="155" y2="138" stroke="#1B2A6B" stroke-width="1.5"/>
+  <line x1="160" y1="118" x2="165" y2="138" stroke="#1B2A6B" stroke-width="1.5"/>
+  <!-- Left pan -->
+  <path d="M152 138 Q160 144 168 138" stroke="#1B2A6B" stroke-width="2" fill="none"/>
+  <!-- Right pan string -->
+  <line x1="210" y1="118" x2="205" y2="138" stroke="#1B2A6B" stroke-width="1.5"/>
+  <line x1="210" y1="118" x2="215" y2="138" stroke="#1B2A6B" stroke-width="1.5"/>
+  <!-- Right pan -->
+  <path d="M202 138 Q210 144 218 138" stroke="#1B2A6B" stroke-width="2" fill="none"/>
+  <!-- Base -->
+  <rect x="178" y="163" width="14" height="4" rx="2" fill="#1B2A6B"/>
+  <rect x="174" y="167" width="22" height="3" rx="1.5" fill="#1B2A6B"/>
+
+  <!-- Mortar & Pestle (right side) -->
+  <!-- Bowl -->
+  <path d="M228 148 Q228 168 248 170 Q268 168 268 148 Z" fill="#1B2A6B"/>
+  <ellipse cx="248" cy="148" rx="20" ry="6" fill="#2D3A8C"/>
+  <!-- Pestle -->
+  <rect x="255" y="120" width="6" height="32" rx="3" fill="#1B2A6B" transform="rotate(15 258 136)"/>
+  <ellipse cx="263" cy="119" rx="6" ry="4" fill="#1B2A6B" transform="rotate(15 263 119)"/>
+
+  <!-- Arc text path -->
+  <path id="arcText" d="M 58 155 A 122 122 0 0 1 302 155" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="13" font-weight="bold" fill="#1B2A6B" letter-spacing="2.2">
+    <textPath href="#arcText" startOffset="4%">• DEVELOPMENT THROUGH RURAL SAVING •</textPath>
+  </text>
+
+  <!-- ═══════════════════════ RED RIBBON / BANNER ═══════════════════════ -->
+
+  <!-- Diamond/chevron shape bottom of circle -->
+  <polygon points="180,310 120,270 180,255 240,270" fill="#CC1E2B"/>
+
+  <!-- Main ribbon banner -->
+  <path d="M60 240 L60 278 Q60 285 68 285 L292 285 Q300 285 300 278 L300 240 Q300 233 292 233 L68 233 Q60 233 60 240Z" fill="#CC1E2B"/>
+  <!-- Left ribbon tail -->
+  <polygon points="60,233 36,258 60,278" fill="#A01520"/>
+  <!-- Right ribbon tail -->
+  <polygon points="300,233 324,258 300,278" fill="#A01520"/>
+  <!-- Highlight line on ribbon -->
+  <line x1="68" y1="240" x2="292" y2="240" stroke="white" stroke-width="1" opacity="0.3"/>
+
+  <!-- MUSACCO text on ribbon -->
+  <text x="180" y="268" font-family="Arial Black, Impact, sans-serif" font-size="36" font-weight="900"
+    fill="white" text-anchor="middle" letter-spacing="3">MUSACCO</text>
+
+  <!-- ═══════════════════ WORDMARK BELOW ═══════════════════ -->
+
+  <!-- MUSACCO large wordmark -->
+  <text x="180" y="338" font-family="Arial Black, Impact, sans-serif" font-size="40" font-weight="900"
+    fill="#1B2A6B" text-anchor="middle" letter-spacing="3">MUSACCO</text>
+
+  <!-- Tagline -->
+  <text x="180" y="358" font-family="Georgia, serif" font-size="14" fill="#1B2A6B" text-anchor="middle" font-style="italic">
+    "Development Through Rural Saving"
+  </text>
+
+</svg>
