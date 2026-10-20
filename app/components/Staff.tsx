@@ -1,8 +1,9 @@
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { createCachedClient } from "@/lib/supabase/cached";
 
 export default async function Staff() {
-  const supabase = await createClient();
+  "use cache";
+  const supabase = createCachedClient();
   const { data: staff } = await supabase
     .from("staff_members")
     .select("id, name, role, bio, photo_url")
@@ -21,7 +22,6 @@ export default async function Staff() {
             Mubuga SACCO is served by a dedicated team committed to helping members achieve their financial goals.
           </p>
         </div>
-
         {list.length === 0 ? (
           <p className="text-center text-gray-400 text-sm py-10">
             Staff profiles will be published here once confirmed by management.

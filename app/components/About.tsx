@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createCachedClient } from "@/lib/supabase/cached";
 
 export default async function About() {
-  const supabase = await createClient();
+  "use cache";
+  const supabase = createCachedClient();
   const { data: aboutVideos } = await supabase
     .from("videos")
     .select("id, title, video_url, thumbnail_url")
@@ -17,7 +18,6 @@ export default async function About() {
     <section id="about" className="section-pad bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-center">
-
           {/* Image / Video panel */}
           <div className="relative pb-8 md:pb-10">
             <div className="bg-[#001E5A] rounded-2xl h-64 sm:h-[320px] md:h-[380px] overflow-hidden">
@@ -68,13 +68,11 @@ export default async function About() {
               towards productive financial goals. We serve farmers, traders, households, small business
               owners and other community members across Kisoro.
             </p>
-
             <div className="grid grid-cols-2 gap-3 mb-7">
               <div className="bg-[#FAFAF5] rounded-xl p-4 border border-[#E2E2EA]">
                 <div className="w-8 h-8 bg-[#001E5A]/10 rounded-lg flex items-center justify-center mb-2">
                   <svg className="w-4 h-4 text-[#001E5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
                 </div>
                 <h4 className="font-bold text-[#001E5A] text-sm mb-1">Our Mission</h4>
@@ -91,9 +89,7 @@ export default async function About() {
                 <p className="text-gray-500 text-xs leading-relaxed">[To be confirmed by management]</p>
               </div>
             </div>
-
-            <Link href="/about"
-              className="inline-flex items-center gap-2 text-[#001E5A] font-semibold text-sm hover:underline">
+            <Link href="/about" className="inline-flex items-center gap-2 text-[#001E5A] font-semibold text-sm hover:underline">
               Learn More About Us
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>

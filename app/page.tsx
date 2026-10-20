@@ -5,7 +5,7 @@ import WhyUs from "./components/WhyUs";
 import LoanCalculator from "./components/LoanCalculator";
 import News from "./components/News";
 import Videos from "./components/Videos";
-import Location from "./components/Location";
+import LocationWrapper from "./components/LocationWrapper";
 import FAQ from "./components/FAQ";
 import Contact from "./components/Contact";
 
@@ -19,7 +19,7 @@ export default function Home() {
       <LoanCalculator />
       <News />
       <Videos />
-      <Location />
+      <LocationWrapper />
       <FAQ />
       <Contact />
     </>

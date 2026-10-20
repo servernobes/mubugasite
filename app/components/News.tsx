@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { createCachedClient } from "@/lib/supabase/cached";
 
 export default async function News() {
-  const supabase = await createClient();
+  "use cache";
+  const supabase = createCachedClient();
   const { data: articles } = await supabase
     .from("news_articles")
     .select("id, slug, category, title, excerpt, cover_url, published_at")
@@ -57,9 +58,7 @@ export default async function News() {
                 </div>
                 <h3 className="font-bold text-[#001E5A] mb-2 leading-snug">{a.title}</h3>
                 <p className="text-gray-500 text-sm leading-relaxed mb-4">{a.excerpt}</p>
-                <Link href={`/news/${a.slug}`} className="text-sm font-semibold text-[#D2003C] hover:underline">
-                  Read more →
-                </Link>
+                <Link href={`/news/${a.slug}`} className="text-sm font-semibold text-[#D2003C] hover:underline">Read more →</Link>
               </div>
             </article>
           ))}

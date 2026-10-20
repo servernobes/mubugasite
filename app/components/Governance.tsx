@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { createCachedClient } from "@/lib/supabase/cached";
 
 const Avatar = ({ name, size = "lg" }: { name: string; size?: "lg" | "sm" }) => {
   const initials = name.startsWith("[") ? "?" : name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
@@ -12,7 +12,8 @@ const Avatar = ({ name, size = "lg" }: { name: string; size?: "lg" | "sm" }) => 
 };
 
 export default async function Governance() {
-  const supabase = await createClient();
+  "use cache";
+  const supabase = createCachedClient();
   const { data: members } = await supabase
     .from("board_members")
     .select("id, name, role, group_type, confirmed, photo_url")
@@ -21,7 +22,8 @@ export default async function Governance() {
   const board      = (members ?? []).filter((m) => m.group_type === "board");
   const management = (members ?? []).filter((m) => m.group_type === "management");
 
-  const Card = ({ m, size }: { m: typeof board[0]; size?: "lg" | "sm" }) => (
+  type Member = NonNullable<typeof members>[0];
+  const Card = ({ m, size }: { m: Member; size?: "lg" | "sm" }) => (
     <div className={`bg-white rounded-2xl border p-5 text-center ${m.confirmed ? "border-[#E2E2EA]" : "border-dashed border-[#E2E2EA]"}`}>
       {m.photo_url ? (
         <Image src={m.photo_url} alt={m.name} width={64} height={64}
@@ -32,9 +34,7 @@ export default async function Governance() {
       <p className={`font-bold text-sm mt-3 mb-0.5 ${m.confirmed ? "text-[#001E5A]" : "text-gray-400 italic"}`}>{m.name}</p>
       <p className="text-[#D2003C] text-xs font-semibold">{m.role}</p>
       {!m.confirmed && (
-        <span className="inline-block mt-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">
-          Pending
-        </span>
+        <span className="inline-block mt-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Pending</span>
       )}
     </div>
   );
@@ -42,15 +42,11 @@ export default async function Governance() {
   return (
     <section className="section-pad bg-[#FAFAF5]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-
-        {/* Board */}
         <div className="mb-14">
           <div className="mb-8">
             <span className="section-label">Governance</span>
             <h2 className="section-title">Board of Directors</h2>
-            <p className="text-gray-500 text-sm mt-2 max-w-xl">
-              Mubuga SACCO is governed by a Board of Directors elected by members.
-            </p>
+            <p className="text-gray-500 text-sm mt-2 max-w-xl">Mubuga SACCO is governed by a Board of Directors elected by members.</p>
           </div>
           {board.length === 0 ? (
             <p className="text-gray-400 text-sm">Board details will be published once confirmed by management.</p>
@@ -60,17 +56,12 @@ export default async function Governance() {
             </div>
           )}
         </div>
-
         <div className="border-t border-[#E2E2EA] mb-14" />
-
-        {/* Management */}
         <div>
           <div className="mb-8">
             <span className="section-label">Leadership</span>
             <h2 className="section-title">Top Management</h2>
-            <p className="text-gray-500 text-sm mt-2 max-w-xl">
-              The management team handles the day-to-day operations of Mubuga SACCO.
-            </p>
+            <p className="text-gray-500 text-sm mt-2 max-w-xl">The management team handles the day-to-day operations of Mubuga SACCO.</p>
           </div>
           {management.length === 0 ? (
             <p className="text-gray-400 text-sm">Management profiles will be published once confirmed.</p>

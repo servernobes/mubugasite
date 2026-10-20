@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { createCachedClient } from "@/lib/supabase/cached";
 
 export default async function Services() {
-  const supabase = await createClient();
+  "use cache";
+  const supabase = createCachedClient();
   const [{ data: loanData }, { data: savingsData }] = await Promise.all([
     supabase.from("loan_products").select("id, slug, title, description, icon_path").eq("published", true).order("sort_order"),
     supabase.from("savings_products").select("id, slug, title, description").eq("published", true).order("sort_order"),
@@ -13,7 +14,6 @@ export default async function Services() {
 
   return (
     <>
-      {/* ── Loans ── */}
       <section id="loans" className="section-pad bg-[#FAFAF5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
@@ -23,7 +23,6 @@ export default async function Services() {
             </div>
             <Link href="/loans" className="text-sm font-semibold text-[#001E5A] hover:underline shrink-0">View all loans →</Link>
           </div>
-
           <div className="bg-[#001E5A] rounded-xl px-5 py-4 mb-6 flex items-center gap-3 flex-wrap">
             <div className="bg-[#D2003C] rounded-lg px-3 py-1.5 shrink-0">
               <p className="text-white text-xs font-black uppercase tracking-wider">NB</p>
@@ -35,7 +34,6 @@ export default async function Services() {
               Apply Now
             </a>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {loans.map((l) => (
               <div key={l.id} className="bg-white rounded-xl border border-[#E2E2EA] p-5 hover:shadow-md hover:border-[#001E5A]/30 transition-all group">
@@ -55,7 +53,6 @@ export default async function Services() {
         </div>
       </section>
 
-      {/* ── Agricultural feature ── */}
       <section className="section-pad bg-[#001E5A]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           <div className="bg-[#0F2470] rounded-2xl h-52 sm:h-64 flex items-center justify-center order-2 md:order-1">
@@ -84,7 +81,6 @@ export default async function Services() {
         </div>
       </section>
 
-      {/* ── Savings ── */}
       <section id="savings" className="section-pad bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
