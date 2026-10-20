@@ -1,3 +1,6 @@
+// This route fetches per-request (dynamic slug) — opt out of instant/prerender validation
+export const instant = false;
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,16 +10,19 @@ import { createCachedClient } from "@/lib/supabase/cached";
 interface Props { params: Promise<{ slug: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  "use cache";
   const { slug } = await params;
   const supabase = createCachedClient();
-  const { data } = await supabase.from("news_articles").select("title, excerpt").eq("slug", slug).eq("published", true).single();
+  const { data } = await supabase
+    .from("news_articles")
+    .select("title, excerpt")
+    .eq("slug", slug)
+    .eq("published", true)
+    .single();
   if (!data) return { title: "Article not found" };
   return { title: data.title, description: data.excerpt };
 }
 
 export default async function ArticlePage({ params }: Props) {
-  "use cache";
   const { slug } = await params;
   const supabase = createCachedClient();
   const { data: article } = await supabase
@@ -41,10 +47,14 @@ export default async function ArticlePage({ params }: Props) {
           <span className="inline-block bg-[#D2003C]/20 text-[#FFE100] text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
             {article.category}
           </span>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-snug">{article.title}</h1>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white leading-snug">
+            {article.title}
+          </h1>
           {article.published_at && (
             <p className="text-white/50 text-xs mt-3">
-              {new Date(article.published_at).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}
+              {new Date(article.published_at).toLocaleDateString("en-GB", {
+                day: "numeric", month: "long", year: "numeric",
+              })}
             </p>
           )}
         </div>
@@ -53,14 +63,22 @@ export default async function ArticlePage({ params }: Props) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         {article.cover_url && (
           <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-8 border border-[#E2E2EA]">
-            <Image src={article.cover_url} alt={article.title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 768px" />
+            <Image
+              src={article.cover_url}
+              alt={article.title}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
           </div>
         )}
 
-        <p className="text-gray-600 text-base leading-relaxed mb-6 font-medium">{article.excerpt}</p>
+        <p className="text-gray-600 text-base leading-relaxed mb-6 font-medium">
+          {article.excerpt}
+        </p>
 
         {article.body ? (
-          <div className="prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-line">
+          <div className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">
             {article.body}
           </div>
         ) : (
@@ -68,8 +86,11 @@ export default async function ArticlePage({ params }: Props) {
         )}
 
         <div className="mt-10 pt-6 border-t border-[#E2E2EA] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <Link href="/news" className="text-sm font-semibold text-[#001E5A] hover:underline">← Back to all articles</Link>
-          <Link href="/contact" className="w-full sm:w-auto text-center bg-[#D2003C] hover:bg-[#A8002E] text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
+          <Link href="/news" className="text-sm font-semibold text-[#001E5A] hover:underline">
+            ← Back to all articles
+          </Link>
+          <Link href="/contact"
+            className="w-full sm:w-auto text-center bg-[#D2003C] hover:bg-[#A8002E] text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
             Contact Us
           </Link>
         </div>
