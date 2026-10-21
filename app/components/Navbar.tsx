@@ -2,57 +2,54 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import ThemeToggle from "./ThemeToggle";
+import LanguageSwitcher from "./LanguageSwitcher";
 
-const loanLinks = [
-  { label: "Business / Commercial Loan", href: "/loans/business" },
-  { label: "Agricultural Loan", href: "/loans/agricultural" },
-  { label: "School Fees Loan", href: "/loans/school-fees" },
-  { label: "Development Loan", href: "/loans/development" },
-  { label: "Home Improvement Loan", href: "/loans/home-improvement" },
-  { label: "Boda Boda Loan", href: "/loans/boda-boda" },
-  { label: "Medical Loan", href: "/loans/medical" },
-  { label: "Emergency Loan", href: "/loans/emergency" },
-];
-
-const savingsLinks = [
-  { label: "Ordinary Savings", href: "/savings/ordinary" },
-  { label: "Voluntary Savings", href: "/savings/voluntary" },
-  { label: "Junior / Minor Savings", href: "/savings/junior" },
-  { label: "VSLA Savings", href: "/savings/vsla" },
-  { label: "School Fees Collection", href: "/savings/school-fees-collection" },
-];
-
+// MSACCO is reached from the Services page, so it has no menu entry
 const moreLinks = [
-  { label: "Services", href: "/services" },
-  { label: "MSACCO Mobile", href: "/msacco" },
-  { label: "Branches", href: "/branches" },
-  { label: "News & Updates", href: "/news" },
+  { label: "Media Centre", href: "/media" },
+  { label: "Reports & Publications", href: "/publications" },
   { label: "FAQs", href: "/faqs" },
-  { label: "Contact Us", href: "/contact" },
 ];
 
-const navLinks = [
+type NavLink = { label: string; href: string; also?: string[]; children?: { label: string; href: string }[] };
+
+const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Loans", href: "/loans", children: loanLinks },
-  { label: "Savings", href: "/savings", children: savingsLinks },
+  { label: "Membership", href: "/membership" },
+  { label: "Savings & Loans", href: "/products", also: ["/loans", "/savings"] },
+  { label: "Services", href: "/services", also: ["/msacco"] },
+  { label: "Branches", href: "/branches" },
+  { label: "News & Updates", href: "/news" },
+  { label: "Contact Us", href: "/contact" },
   { label: "More", href: "#", children: moreLinks },
 ];
 
+// Current page = exact match, or a sub-page (/news/some-article); "also" lists related sections
+function isActive(path: string, l: NavLink): boolean {
+  if (l.children) return l.children.some((c) => isActive(path, c));
+  if (l.href === "/") return path === "/";
+  return [l.href, ...(l.also ?? [])].some((h) => path === h || path.startsWith(h + "/"));
+}
+
 export default function Navbar() {
+  const path = usePathname();
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   return (
-    <nav className="sticky top-0 z-50 bg-white border-b border-[#E2E2EA] shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[66px]">
+    <nav className="sticky top-0 z-50 bg-surface border-b border-line shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[76px]">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 shrink-0">
-          <Image src="/musacco-logo.png" alt="Mubuga SACCO Ltd" width={48} height={48} className="h-11 w-auto" priority/>
-          <div className="leading-tight hidden sm:block">
-            <p className="text-[#001E5A] font-extrabold text-sm tracking-tight">Mubuga SACCO</p>
-            <p className="text-[#D2003C] text-[10px] font-bold tracking-widest uppercase">Ltd · Kisoro, Uganda</p>
+        <Link href="/" className="flex items-center gap-3 shrink-0">
+          <Image src="/musacco-logo.png" alt="Mubuga SACCO Ltd" width={128} height={128} className="h-14 sm:h-16 w-auto" priority/>
+          {/* Name text is hidden on 1024–1279px screens so all menu links fit */}
+          <div className="leading-tight hidden sm:block lg:hidden xl:block">
+            <p className="text-brand-ink font-extrabold text-sm tracking-tight notranslate" translate="no">Mubuga SACCO</p>
+            <p className="text-accent-ink text-[10px] font-bold tracking-widest uppercase">Ltd · Kisoro, Uganda</p>
           </div>
         </Link>
 
@@ -62,9 +59,12 @@ export default function Navbar() {
             <li key={l.label} className="relative"
               onMouseEnter={() => l.children && setDropdown(l.label)}
               onMouseLeave={() => setDropdown(null)}>
-              <Link href={l.href}
-                className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-[#0D0D2B] hover:text-[#001E5A] hover:bg-[#F4F4F6] rounded-md transition-colors">
+              <Link href={l.href} aria-current={isActive(path, l) && !l.children ? "page" : undefined}
+                className={`relative flex items-center gap-1 px-2 xl:px-2.5 py-2 text-[13px] xl:text-sm whitespace-nowrap rounded-md transition-colors hover:text-brand-ink hover:bg-soft ${
+                  isActive(path, l) ? "font-bold text-brand-ink bg-soft" : "font-medium text-ink"}`}>
                 {l.label}
+                {/* Underline marking the current page */}
+                {isActive(path, l) && <span aria-hidden className="absolute left-2 right-2 -bottom-[19px] h-[3px] rounded-full bg-accent" />}
                 {l.children && (
                   <svg className="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
@@ -72,10 +72,11 @@ export default function Navbar() {
                 )}
               </Link>
               {l.children && dropdown === l.label && (
-                <div className="absolute top-full left-0 w-56 bg-white border border-[#E2E2EA] rounded-xl shadow-lg py-1 z-50">
+                <div className="absolute top-full left-0 w-64 bg-surface border border-line rounded-xl shadow-lg py-1 z-50 max-h-[70vh] overflow-y-auto">
                   {l.children.map((c) => (
-                    <Link key={c.href} href={c.href}
-                      className="block px-4 py-2.5 text-sm text-[#0D0D2B] hover:bg-[#F4F4F6] hover:text-[#001E5A] transition-colors">
+                    <Link key={c.href} href={c.href} aria-current={isActive(path, c) ? "page" : undefined}
+                      className={`block px-4 py-2.5 text-sm hover:bg-soft hover:text-brand-ink transition-colors ${
+                        isActive(path, c) ? "font-bold text-brand-ink bg-soft border-l-[3px] border-accent" : "text-ink"}`}>
                       {c.label}
                     </Link>
                   ))}
@@ -86,31 +87,40 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2">
+          <LanguageSwitcher />
+          <ThemeToggle />
+          {/* Red button only on wide screens; "Contact Us" is also in the menu */}
           <Link href="/contact"
-            className="bg-[#D2003C] hover:bg-[#A8002E] text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
+            className="hidden xl:inline-block bg-accent hover:bg-accent-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
             Contact Us
           </Link>
         </div>
 
-        {/* Mobile toggle */}
-        <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-md text-[#001E5A] hover:bg-[#F4F4F6]" aria-label="Toggle menu">
+        {/* Mobile toggles */}
+        <div className="lg:hidden flex items-center gap-2">
+        <LanguageSwitcher />
+        <ThemeToggle />
+        <button onClick={() => setOpen(!open)} className="p-2 rounded-md text-brand-ink hover:bg-soft" aria-label="Toggle menu">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open
               ? <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
               : <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16"/>}
           </svg>
         </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-[#E2E2EA] bg-white px-4 sm:px-6 pb-4 max-h-[75vh] overflow-y-auto">
+        <div className="lg:hidden border-t border-line bg-surface px-4 sm:px-6 pb-4 max-h-[75vh] overflow-y-auto">
           {navLinks.map((l) => (
             <div key={l.label}>
               <div className="flex items-center justify-between">
                 <Link href={l.href} onClick={() => !l.children && setOpen(false)}
-                  className="block py-3 text-sm font-semibold text-[#0D0D2B]">
+                  aria-current={isActive(path, l) && !l.children ? "page" : undefined}
+                  className={`flex items-center gap-2 py-3 text-sm ${isActive(path, l) ? "font-bold text-brand-ink" : "font-semibold text-ink"}`}>
+                  {isActive(path, l) && <span aria-hidden className="w-1.5 h-5 rounded-full bg-accent" />}
                   {l.label}
                 </Link>
                 {l.children && (
@@ -124,20 +134,21 @@ export default function Navbar() {
                 )}
               </div>
               {l.children && mobileExpanded === l.label && (
-                <div className="pl-3 pb-2 border-l-2 border-[#D2003C] ml-1 mb-1">
+                <div className="pl-3 pb-2 border-l-2 border-accent-ink ml-1 mb-1">
                   {l.children.map((c) => (
                     <Link key={c.href} href={c.href} onClick={() => setOpen(false)}
-                      className="block py-2 text-sm text-gray-500 hover:text-[#001E5A]">
+                      aria-current={isActive(path, c) ? "page" : undefined}
+                      className={`block py-2 text-sm hover:text-brand-ink ${isActive(path, c) ? "font-bold text-brand-ink" : "text-gray-500"}`}>
                       {c.label}
                     </Link>
                   ))}
                 </div>
               )}
-              <div className="border-b border-[#E2E2EA]"/>
+              <div className="border-b border-line"/>
             </div>
           ))}
           <Link href="/contact" onClick={() => setOpen(false)}
-            className="mt-4 block text-center bg-[#D2003C] hover:bg-[#A8002E] text-white text-sm font-bold py-3 rounded-lg transition-colors">
+            className="mt-4 block text-center bg-accent hover:bg-accent-hover text-white text-sm font-bold py-3 rounded-lg transition-colors">
             Contact Us
           </Link>
         </div>

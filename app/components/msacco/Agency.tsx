@@ -34,7 +34,7 @@ const StepList = ({ steps }: { steps: { n: number; text: string }[] }) => (
   <ol className="space-y-3">
     {steps.map((s) => (
       <li key={s.n} className="flex items-start gap-3">
-        <div className="w-7 h-7 rounded-full bg-[#001E5A] flex items-center justify-center shrink-0 mt-0.5">
+        <div className="w-7 h-7 rounded-full bg-brand flex items-center justify-center shrink-0 mt-0.5">
           <span className="text-white font-bold text-xs">{s.n}</span>
         </div>
         <p className="text-gray-600 text-sm leading-relaxed pt-0.5">{s.text}</p>
@@ -45,7 +45,7 @@ const StepList = ({ steps }: { steps: { n: number; text: string }[] }) => (
 
 export default function MSACCOAgency() {
   return (
-    <section id="agency" className="py-12 sm:py-16 bg-white scroll-mt-32">
+    <section id="agency" className="py-12 sm:py-16 bg-surface scroll-mt-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="mb-8">
           <span className="section-label">For Authorised Agents</span>
@@ -56,12 +56,12 @@ export default function MSACCOAgency() {
         </div>
 
         {/* Terms glossary */}
-        <div className="bg-[#FAFAF5] rounded-2xl border border-[#E2E2EA] p-5 sm:p-6 mb-8">
-          <h3 className="font-bold text-[#001E5A] mb-4 text-sm">Important Terms to Understand</h3>
+        <div className="bg-tint rounded-2xl border border-line p-5 sm:p-6 mb-8">
+          <h3 className="font-bold text-brand-ink mb-4 text-sm">Important Terms to Understand</h3>
           <div className="space-y-3">
             {terms.map((t) => (
-              <div key={t.term} className="flex gap-3 pb-3 border-b border-[#E2E2EA] last:border-0 last:pb-0">
-                <div className="bg-[#001E5A] text-white text-xs font-bold px-2.5 py-1 rounded-lg shrink-0 h-fit mt-0.5">{t.term}</div>
+              <div key={t.term} className="flex gap-3 pb-3 border-b border-line last:border-0 last:pb-0">
+                <div className="bg-brand text-white text-xs font-bold px-2.5 py-1 rounded-lg shrink-0 h-fit mt-0.5">{t.term}</div>
                 <p className="text-gray-500 text-xs leading-relaxed">{t.def}</p>
               </div>
             ))}
@@ -71,9 +71,9 @@ export default function MSACCOAgency() {
         {/* Deposit + Withdrawal side by side */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
           {/* Deposit */}
-          <div className="bg-[#001E5A] rounded-2xl p-5 sm:p-6">
+          <div className="bg-brand rounded-2xl p-5 sm:p-6">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 bg-[#D2003C] rounded-xl flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18"/>
                 </svg>
@@ -87,15 +87,15 @@ export default function MSACCOAgency() {
           </div>
 
           {/* Withdrawal */}
-          <div className="bg-[#FAFAF5] rounded-2xl border border-[#E2E2EA] p-5 sm:p-6">
+          <div className="bg-tint rounded-2xl border border-line p-5 sm:p-6">
             <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 bg-[#001E5A] rounded-xl flex items-center justify-center shrink-0">
+              <div className="w-10 h-10 bg-brand rounded-xl flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-[#001E5A]">Agent Withdrawal</h3>
+                <h3 className="font-bold text-brand-ink">Agent Withdrawal</h3>
                 <p className="text-gray-500 text-xs">Option 2 in Agency menu</p>
               </div>
             </div>
@@ -104,8 +104,8 @@ export default function MSACCOAgency() {
         </div>
 
         {/* Agent security notice */}
-        <div className="bg-[#D2003C]/10 border border-[#D2003C]/30 rounded-2xl p-5 sm:p-6">
-          <h3 className="font-bold text-[#D2003C] mb-3 flex items-center gap-2 text-sm">
+        <div className="bg-accent/10 border border-accent-ink/30 rounded-2xl p-5 sm:p-6">
+          <h3 className="font-bold text-accent-ink mb-3 flex items-center gap-2 text-sm">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
             </svg>
@@ -121,7 +121,7 @@ export default function MSACCOAgency() {
               "Do not accept cash before the transaction is confirmed with an SMS.",
             ].map((r) => (
               <li key={r} className="flex items-start gap-2 text-sm text-gray-700">
-                <svg className="w-4 h-4 text-[#D2003C] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-accent-ink shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                 </svg>
                 {r}

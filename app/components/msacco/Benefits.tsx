@@ -58,7 +58,7 @@ const agentBenefits = [
 
 export default function MSACCOBenefits() {
   return (
-    <section id="benefits" className="py-12 sm:py-16 bg-white scroll-mt-32">
+    <section id="benefits" className="py-12 sm:py-16 bg-surface scroll-mt-32">
       <div className="max-w-4xl mx-auto px-4 sm:px-6">
         <div className="mb-10">
           <span className="section-label">Why Use MSACCO</span>
@@ -68,22 +68,22 @@ export default function MSACCOBenefits() {
         {/* Member benefits */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-8 bg-[#001E5A] rounded-lg flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center shrink-0">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
               </svg>
             </div>
-            <h3 className="font-bold text-[#001E5A] text-base sm:text-lg">For Members</h3>
+            <h3 className="font-bold text-brand-ink text-base sm:text-lg">For Members</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {memberBenefits.map((b) => (
-              <div key={b.title} className="bg-[#FAFAF5] rounded-xl border border-[#E2E2EA] p-4 sm:p-5 hover:border-[#001E5A]/30 hover:shadow-sm transition-all">
-                <div className="w-9 h-9 bg-[#001E5A]/10 rounded-lg flex items-center justify-center mb-3">
-                  <svg className="w-4 h-4 text-[#001E5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div key={b.title} className="bg-tint rounded-xl border border-line p-4 sm:p-5 hover:border-brand-ink/30 hover:shadow-sm transition-all">
+                <div className="w-9 h-9 bg-brand/10 rounded-lg flex items-center justify-center mb-3">
+                  <svg className="w-4 h-4 text-brand-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={b.icon}/>
                   </svg>
                 </div>
-                <h4 className="font-bold text-[#001E5A] text-sm mb-1">{b.title}</h4>
+                <h4 className="font-bold text-brand-ink text-sm mb-1">{b.title}</h4>
                 <p className="text-gray-500 text-xs leading-relaxed">{b.desc}</p>
               </div>
             ))}
@@ -93,22 +93,22 @@ export default function MSACCOBenefits() {
         {/* Agent benefits */}
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-8 h-8 bg-[#D2003C] rounded-lg flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shrink-0">
               <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
               </svg>
             </div>
-            <h3 className="font-bold text-[#001E5A] text-base sm:text-lg">For Agents</h3>
+            <h3 className="font-bold text-brand-ink text-base sm:text-lg">For Agents</h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {agentBenefits.map((b) => (
-              <div key={b.title} className="bg-[#FAFAF5] rounded-xl border border-[#E2E2EA] p-4 sm:p-5 hover:border-[#D2003C]/30 hover:shadow-sm transition-all">
-                <div className="w-9 h-9 bg-[#D2003C]/10 rounded-lg flex items-center justify-center mb-3">
-                  <svg className="w-4 h-4 text-[#D2003C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div key={b.title} className="bg-tint rounded-xl border border-line p-4 sm:p-5 hover:border-accent-ink/30 hover:shadow-sm transition-all">
+                <div className="w-9 h-9 bg-accent/10 rounded-lg flex items-center justify-center mb-3">
+                  <svg className="w-4 h-4 text-accent-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={b.icon}/>
                   </svg>
                 </div>
-                <h4 className="font-bold text-[#001E5A] text-sm mb-1">{b.title}</h4>
+                <h4 className="font-bold text-brand-ink text-sm mb-1">{b.title}</h4>
                 <p className="text-gray-500 text-xs leading-relaxed">{b.desc}</p>
               </div>
             ))}
@@ -116,7 +116,7 @@ export default function MSACCOBenefits() {
         </div>
 
         {/* Become an agent CTA */}
-        <div className="bg-[#001E5A] rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
+        <div className="bg-brand rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-5">
           <div className="flex-1">
             <h3 className="font-extrabold text-white text-lg mb-2">Become a MUSACCO Agent</h3>
             <p className="text-white/60 text-sm leading-relaxed">
@@ -124,7 +124,7 @@ export default function MSACCOBenefits() {
             </p>
           </div>
           <Link href="/contact?enquiry=services"
-            className="shrink-0 w-full sm:w-auto text-center bg-[#D2003C] hover:bg-[#A8002E] text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm">
+            className="shrink-0 w-full sm:w-auto text-center bg-accent hover:bg-accent-hover text-white font-bold px-6 py-3 rounded-lg transition-colors text-sm">
             Enquire About Agency
           </Link>
         </div>

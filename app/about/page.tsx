@@ -9,13 +9,13 @@ export default function AboutPage() {
   return (
     <>
       {/* Page hero */}
-      <div className="bg-[#001E5A] py-10 sm:py-14">
+      <div className="bg-gradient-to-b from-tint-strong to-surface border-b border-line py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <p className="text-[#D2003C] text-xs font-bold uppercase tracking-widest mb-2">About Mubuga SACCO</p>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white">
+          <p className="text-accent-ink text-xs font-bold uppercase tracking-widest mb-2">About Mubuga SACCO</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-ink">
             Financial Services Rooted in Our Community
           </h1>
-          <p className="text-white/60 mt-3 max-w-2xl text-sm sm:text-base">
+          <p className="text-gray-600 mt-3 max-w-2xl text-sm sm:text-base">
             Mubuga SACCO Ltd is a member-owned savings and credit cooperative operating in Kisoro District, Uganda.
           </p>
           {/* Quick nav */}
@@ -28,7 +28,7 @@ export default function AboutPage() {
               ["Our Team", "#team"],
             ].map(([label, href]) => (
               <a key={label} href={href}
-                className="text-xs font-semibold text-white/60 hover:text-white border border-white/20 hover:border-white/50 px-3 py-1.5 rounded-full transition-colors">
+                className="text-xs font-semibold text-gray-600 hover:text-brand-ink border border-line hover:border-brand-ink/30 px-3 py-1.5 rounded-full transition-colors">
                 {label}
               </a>
             ))}
@@ -37,7 +37,7 @@ export default function AboutPage() {
       </div>
 
       {/* Who We Are */}
-      <section id="who" className="section-pad bg-white scroll-mt-20">
+      <section id="who" className="section-pad bg-surface scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
           <div>
             <span className="section-label">Our Story</span>
@@ -52,7 +52,7 @@ export default function AboutPage() {
               As a cooperative, Mubuga SACCO is owned by its members. Membership gives you access to our savings products, credit facilities and other financial services, while making you a co-owner of the institution.
             </p>
           </div>
-          <div className="space-y-0 divide-y divide-[#E2E2EA]">
+          <div className="space-y-0 divide-y divide-line">
             {[
               { label: "Institution Type", val: "Savings and Credit Cooperative Society (SACCO)" },
               { label: "Location", val: "Nyakinama Sub-county, Kisoro District, Uganda" },
@@ -71,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       {/* Vision / Mission / Values */}
-      <section id="mission" className="section-pad bg-[#FAFAF5] scroll-mt-20">
+      <section id="mission" className="section-pad bg-tint scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <span className="section-label">Our Direction</span>
@@ -79,11 +79,11 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Vision", color: "border-[#001E5A]", bg: "bg-[#001E5A]/10", tc: "text-[#001E5A]", content: "[Vision statement to be confirmed by management]" },
-              { title: "Mission", color: "border-[#D2003C]", bg: "bg-[#D2003C]/10", tc: "text-[#D2003C]", content: "[Mission statement to be confirmed by management]" },
-              { title: "Core Values", color: "border-[#001E5A]", bg: "bg-[#001E5A]/10", tc: "text-[#001E5A]", content: "[Core values to be confirmed by management — e.g. Integrity, Trust, Community, Accountability, Transparency]" },
+              { title: "Vision", color: "border-brand-ink", bg: "bg-brand/10", tc: "text-brand-ink", content: "[Vision statement to be confirmed by management]" },
+              { title: "Mission", color: "border-accent-ink", bg: "bg-accent/10", tc: "text-accent-ink", content: "[Mission statement to be confirmed by management]" },
+              { title: "Core Values", color: "border-brand-ink", bg: "bg-brand/10", tc: "text-brand-ink", content: "[Core values to be confirmed by management — e.g. Integrity, Trust, Community, Accountability, Transparency]" },
             ].map((c) => (
-              <div key={c.title} className={`bg-white rounded-xl border-t-4 ${c.color} border border-[#E2E2EA] p-6`}>
+              <div key={c.title} className={`bg-surface rounded-xl border-t-4 ${c.color} border border-line p-6`}>
                 <div className={`w-8 h-8 ${c.bg} rounded-lg flex items-center justify-center mb-3`}>
                   <span className={`${c.tc} font-extrabold text-xs`}>{c.title[0]}</span>
                 </div>
@@ -106,7 +106,7 @@ export default function AboutPage() {
       </div>
 
       {/* CTA */}
-      <section className="section-pad bg-white">
+      <section className="section-pad bg-surface">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
           <h2 className="section-title mb-4">Ready to Join?</h2>
           <p className="text-gray-500 mb-6 text-sm">
@@ -114,11 +114,11 @@ export default function AboutPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/contact?enquiry=membership"
-              className="bg-[#001E5A] hover:bg-[#D2003C] text-white font-bold px-7 py-3 rounded-lg transition-colors text-sm">
+              className="bg-brand hover:bg-accent text-white font-bold px-7 py-3 rounded-lg transition-colors text-sm">
               Membership Enquiry
             </Link>
             <Link href="/branches"
-              className="border-2 border-[#001E5A] text-[#001E5A] hover:bg-[#001E5A] hover:text-white font-bold px-7 py-3 rounded-lg transition-colors text-sm">
+              className="border-2 border-brand-ink text-brand-ink hover:bg-brand hover:text-white font-bold px-7 py-3 rounded-lg transition-colors text-sm">
               Find Our Office
             </Link>
           </div>

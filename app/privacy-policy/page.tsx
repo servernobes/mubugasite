@@ -15,10 +15,10 @@ const sections = [
 export default function PrivacyPolicy() {
   return (
     <>
-      <div className="bg-[#001E5A] py-10 sm:py-14">
+      <div className="bg-gradient-to-b from-tint-strong to-surface border-b border-line py-10 sm:py-14">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Privacy Policy</h1>
-          <p className="text-white/60 mt-2 text-xs sm:text-sm">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-brand-ink">Privacy Policy</h1>
+          <p className="text-gray-600 mt-2 text-xs sm:text-sm">
             Last reviewed: [Date to be confirmed by management]
           </p>
         </div>
@@ -34,7 +34,7 @@ export default function PrivacyPolicy() {
 
         {sections.map((s) => (
           <div key={s.title}>
-            <h2 className="font-bold text-[#001E5A] text-base sm:text-lg mb-2">{s.title}</h2>
+            <h2 className="font-bold text-brand-ink text-base sm:text-lg mb-2">{s.title}</h2>
             <p className="text-gray-600 text-sm leading-relaxed">{s.body}</p>
           </div>
         ))}

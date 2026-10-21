@@ -1,8 +1,10 @@
+import { cacheTag } from "next/cache";
 import { createCachedClient } from "@/lib/supabase/cached";
 import Location from "./Location";
 
 export default async function LocationWrapper() {
   "use cache";
+  cacheTag("cms"); // cleared by /api/revalidate when the admin saves
   const supabase = createCachedClient();
   const { data: branches } = await supabase
     .from("branches")

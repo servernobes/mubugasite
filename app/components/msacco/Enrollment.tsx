@@ -68,34 +68,34 @@ const steps = [
 const Step = ({ s }: { s: typeof steps[0] }) => (
   <div className="flex gap-4 sm:gap-5">
     <div className="flex flex-col items-center shrink-0">
-      <div className="w-9 h-9 rounded-full bg-[#D2003C] flex items-center justify-center">
+      <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center">
         <span className="text-white font-extrabold text-sm">{s.step}</span>
       </div>
-      {s.step < steps.length && <div className="w-0.5 bg-[#E2E2EA] flex-1 mt-2" />}
+      {s.step < steps.length && <div className="w-0.5 bg-line flex-1 mt-2" />}
     </div>
     <div className="pb-6 flex-1">
-      <h3 className="font-bold text-[#001E5A] text-sm sm:text-base mb-1">{s.title}</h3>
+      <h3 className="font-bold text-brand-ink text-sm sm:text-base mb-1">{s.title}</h3>
       {(s as any).mtn && (
         <div className="flex flex-wrap gap-2 mb-2">
-          <span className="bg-[#FFE100]/20 border border-[#FFE100]/40 text-[#001E5A] font-extrabold text-base px-3 py-1 rounded-lg">
+          <span className="bg-gold/20 border border-gold/40 text-brand-ink font-extrabold text-base px-3 py-1 rounded-lg">
             MTN: {(s as any).mtn}
           </span>
-          <span className="bg-[#D2003C]/10 border border-[#D2003C]/30 text-[#001E5A] font-extrabold text-base px-3 py-1 rounded-lg">
+          <span className="bg-accent/10 border border-accent-ink/30 text-brand-ink font-extrabold text-base px-3 py-1 rounded-lg">
             Airtel: {(s as any).airtel}
           </span>
         </div>
       )}
       <p className="text-gray-600 text-sm leading-relaxed">{s.desc}</p>
       {(s as any).highlight && (
-        <div className="mt-2 inline-flex items-center gap-2 bg-[#001E5A] rounded-lg px-4 py-2">
-          <svg className="w-4 h-4 text-[#FFE100] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mt-2 inline-flex items-center gap-2 bg-brand rounded-lg px-4 py-2">
+          <svg className="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"/>
           </svg>
-          <span className="text-[#FFE100] font-extrabold text-base tracking-wider">{(s as any).highlight}</span>
+          <span className="text-gold font-extrabold text-base tracking-wider">{(s as any).highlight}</span>
         </div>
       )}
       {s.note && (
-        <p className="mt-2 text-xs text-[#D2003C] font-semibold flex items-start gap-1.5">
+        <p className="mt-2 text-xs text-accent-ink font-semibold flex items-start gap-1.5">
           <svg className="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
           </svg>
@@ -119,9 +119,9 @@ export default function MSACCOEnrollment() {
         </div>
 
         {/* Prerequisites */}
-        <div className="bg-[#FFE100]/10 border border-[#FFE100]/30 rounded-2xl p-5 sm:p-6 mb-8">
-          <h3 className="font-bold text-[#001E5A] mb-4 flex items-center gap-2">
-            <svg className="w-5 h-5 text-[#D2003C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="bg-gold/10 border border-gold/30 rounded-2xl p-5 sm:p-6 mb-8">
+          <h3 className="font-bold text-brand-ink mb-4 flex items-center gap-2">
+            <svg className="w-5 h-5 text-accent-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
             </svg>
             Before You Start — Checklist
@@ -129,28 +129,28 @@ export default function MSACCOEnrollment() {
           <ul className="space-y-2">
             {prerequisites.map((p) => (
               <li key={p} className="flex items-start gap-2.5 text-sm text-gray-700">
-                <svg className="w-4 h-4 text-[#001E5A] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-brand-ink shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
                 </svg>
                 {p}
               </li>
             ))}
           </ul>
-          <p className="mt-4 text-xs text-gray-500 border-t border-[#FFE100]/30 pt-3">
+          <p className="mt-4 text-xs text-gray-500 border-t border-gold/30 pt-3">
             If your name on the SIM does not match SACCO records, enrollment will fail. Visit the office to update your records first.
           </p>
         </div>
 
         {/* Steps */}
-        <div className="bg-white rounded-2xl border border-[#E2E2EA] p-5 sm:p-8">
-          <h3 className="font-bold text-[#001E5A] mb-6 text-base">Enrollment Steps</h3>
+        <div className="bg-surface rounded-2xl border border-line p-5 sm:p-8">
+          <h3 className="font-bold text-brand-ink mb-6 text-base">Enrollment Steps</h3>
           {steps.map((s) => <Step key={s.step} s={s} />)}
         </div>
 
         {/* Enrollment failure help */}
-        <div className="mt-6 bg-white rounded-2xl border border-[#E2E2EA] p-5 sm:p-6">
-          <h3 className="font-bold text-[#001E5A] mb-4 flex items-center gap-2 text-sm sm:text-base">
-            <svg className="w-5 h-5 text-[#D2003C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="mt-6 bg-surface rounded-2xl border border-line p-5 sm:p-6">
+          <h3 className="font-bold text-brand-ink mb-4 flex items-center gap-2 text-sm sm:text-base">
+            <svg className="w-5 h-5 text-accent-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
             Enrollment Not Working?
@@ -163,12 +163,12 @@ export default function MSACCOEnrollment() {
               ["Phone not registered", "Your phone number must be registered with Mubuga SACCO. Call 0394 841 360 to register it."],
               ["Still failing", "Call MSACCO customer care: 0800 220 220 or WhatsApp: 0741-241252."],
             ].map(([issue, sol]) => (
-              <div key={issue} className="flex gap-3 pb-3 border-b border-[#E2E2EA] last:border-0 last:pb-0">
-                <svg className="w-4 h-4 text-[#D2003C] shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div key={issue} className="flex gap-3 pb-3 border-b border-line last:border-0 last:pb-0">
+                <svg className="w-4 h-4 text-accent-ink shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12"/>
                 </svg>
                 <div>
-                  <p className="font-semibold text-[#001E5A] text-xs mb-0.5">{issue}</p>
+                  <p className="font-semibold text-brand-ink text-xs mb-0.5">{issue}</p>
                   <p className="text-xs text-gray-500">{sol}</p>
                 </div>
               </div>

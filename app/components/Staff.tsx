@@ -1,8 +1,10 @@
+import { cacheTag } from "next/cache";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
 
 export default async function Staff() {
   "use cache";
+  cacheTag("cms"); // cleared by /api/revalidate when the admin saves
   const supabase = createCachedClient();
   const { data: staff } = await supabase
     .from("staff_members")
@@ -13,7 +15,7 @@ export default async function Staff() {
   const list = staff ?? [];
 
   return (
-    <section className="section-pad bg-white">
+    <section className="section-pad bg-surface">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-12">
           <span className="section-label">Our People</span>
@@ -29,19 +31,24 @@ export default async function Staff() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {list.map((s) => (
-              <div key={s.id} className="bg-[#FAFAF5] rounded-2xl border border-[#E2E2EA] p-6 text-center hover:border-[#001E5A]/30 hover:shadow-sm transition-all">
-                <div className="w-20 h-20 rounded-full bg-[#001E5A] flex items-center justify-center mx-auto mb-4 overflow-hidden">
+              <div key={s.id} className="bg-surface rounded-2xl border border-line overflow-hidden hover:border-brand-ink/30 hover:shadow-md transition-all">
+                {/* Portrait photo — rectangular, full card width */}
+                <div className="relative aspect-[4/5] bg-tint-strong flex items-center justify-center">
                   {s.photo_url ? (
-                    <Image src={s.photo_url} alt={s.name} width={80} height={80} className="w-full h-full object-cover" />
+                    <Image src={s.photo_url} alt={s.name} fill
+                      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-cover object-top" />
                   ) : (
-                    <svg className="w-10 h-10 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                    <svg className="w-20 h-20 text-brand-ink/25" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                   )}
                 </div>
-                <h3 className="font-bold text-[#001E5A] text-sm mb-0.5">{s.name}</h3>
-                <p className="text-[#D2003C] text-xs font-semibold mb-3">{s.role}</p>
-                {s.bio && <p className="text-gray-400 text-xs leading-relaxed">{s.bio}</p>}
+                <div className="p-5 text-center">
+                  <h3 className="font-bold text-brand-ink text-base mb-0.5">{s.name}</h3>
+                  <p className="text-accent-ink text-xs font-semibold">{s.role}</p>
+                  {s.bio && <p className="text-gray-500 text-xs leading-relaxed mt-3">{s.bio}</p>}
+                </div>
               </div>
             ))}
           </div>

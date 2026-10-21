@@ -65,6 +65,24 @@ export type Database = {
         Insert: Omit<Database["public"]["Tables"]["gallery_images"]["Row"], "id" | "created_at">;
         Update: Partial<Database["public"]["Tables"]["gallery_images"]["Insert"]>;
       };
+      documents: {
+        Row: {
+          id: string;
+          title: string;
+          category: string;
+          year: number | null;
+          description: string;
+          file_url: string;
+          file_name: string;
+          file_size: number | null;
+          published: boolean;
+          sort_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["documents"]["Row"], "id" | "created_at" | "updated_at">;
+        Update: Partial<Database["public"]["Tables"]["documents"]["Insert"]>;
+      };
       site_settings: {
         Row: {
           key: string;
@@ -85,3 +103,4 @@ export type StaffMember  = Database["public"]["Tables"]["staff_members"]["Row"];
 export type BoardMember  = Database["public"]["Tables"]["board_members"]["Row"];
 export type GalleryImage = Database["public"]["Tables"]["gallery_images"]["Row"];
 export type SiteSetting  = Database["public"]["Tables"]["site_settings"]["Row"];
+export type SaccoDocument = Database["public"]["Tables"]["documents"]["Row"];

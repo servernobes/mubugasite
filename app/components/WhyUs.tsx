@@ -30,7 +30,7 @@ const reasons = [
 
 export default function WhyUs() {
   return (
-    <section className="section-pad bg-[#FAFAF5]">
+    <section className="section-pad bg-tint">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center mb-10 md:mb-12">
           <span className="section-label">Why Mubuga SACCO</span>
@@ -38,20 +38,20 @@ export default function WhyUs() {
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {reasons.map((r) => (
-            <div key={r.title} className="bg-white rounded-xl border border-[#E2E2EA] p-6">
-              <div className="w-10 h-10 bg-[#001E5A]/10 rounded-lg flex items-center justify-center mb-4">
-                <svg className="w-5 h-5 text-[#001E5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div key={r.title} className="bg-surface rounded-xl border border-line p-6">
+              <div className="w-10 h-10 bg-brand/10 rounded-lg flex items-center justify-center mb-4">
+                <svg className="w-5 h-5 text-brand-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={r.icon}/>
                 </svg>
               </div>
-              <h3 className="font-bold text-[#001E5A] mb-2">{r.title}</h3>
+              <h3 className="font-bold text-brand-ink mb-2">{r.title}</h3>
               <p className="text-gray-500 text-sm leading-relaxed">{r.desc}</p>
             </div>
           ))}
         </div>
 
         {/* Membership CTA */}
-        <div className="mt-10 md:mt-14 bg-[#001E5A] rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
+        <div className="mt-10 md:mt-14 bg-brand rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
           <div>
             <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-2">Become Part of the Mubuga SACCO Community</h3>
             <p className="text-white/70 text-sm max-w-xl">
@@ -59,7 +59,7 @@ export default function WhyUs() {
             </p>
           </div>
           <Link href="/contact?enquiry=membership"
-            className="w-full sm:w-auto shrink-0 text-center bg-[#D2003C] hover:bg-[#A8002E] text-white font-bold px-7 py-3.5 rounded-lg transition-colors">
+            className="w-full sm:w-auto shrink-0 text-center bg-accent hover:bg-accent-hover text-white font-bold px-7 py-3.5 rounded-lg transition-colors">
             Membership Enquiry
           </Link>
         </div>

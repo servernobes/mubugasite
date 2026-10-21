@@ -66,19 +66,19 @@ export default function MSACCOAccountHelp() {
         </div>
 
         {/* Account options */}
-        <div className="bg-white rounded-2xl border border-[#E2E2EA] mb-8 overflow-hidden">
-          <div className="bg-[#001E5A] px-5 py-4">
+        <div className="bg-surface rounded-2xl border border-line mb-8 overflow-hidden">
+          <div className="bg-brand px-5 py-4">
             <h3 className="font-bold text-white text-sm">Account Management Options</h3>
             <p className="text-white/50 text-xs mt-0.5">Access these by dialing your USSD code → MSACCO → Account</p>
           </div>
-          <div className="divide-y divide-[#E2E2EA]">
+          <div className="divide-y divide-line">
             {accountOptions.map((o) => (
               <div key={o.opt} className="flex items-start gap-4 px-5 py-4">
-                <div className="w-8 h-8 rounded-lg bg-[#001E5A]/10 flex items-center justify-center shrink-0">
-                  <span className="text-[#001E5A] font-extrabold text-sm">{o.opt}</span>
+                <div className="w-8 h-8 rounded-lg bg-brand/10 flex items-center justify-center shrink-0">
+                  <span className="text-brand-ink font-extrabold text-sm">{o.opt}</span>
                 </div>
                 <div>
-                  <p className="font-bold text-[#001E5A] text-sm">{o.title}</p>
+                  <p className="font-bold text-brand-ink text-sm">{o.title}</p>
                   <p className="text-gray-500 text-xs mt-0.5 leading-relaxed">{o.desc}</p>
                 </div>
               </div>
@@ -87,21 +87,21 @@ export default function MSACCOAccountHelp() {
         </div>
 
         {/* Error guide */}
-        <div className="bg-white rounded-2xl border border-[#E2E2EA] overflow-hidden">
-          <div className="bg-[#D2003C] px-5 py-4">
+        <div className="bg-surface rounded-2xl border border-line overflow-hidden">
+          <div className="bg-accent px-5 py-4">
             <h3 className="font-bold text-white text-sm">Common Errors & What to Do</h3>
             <p className="text-white/70 text-xs mt-0.5">Tap an error to see the cause and solution</p>
           </div>
-          <div className="divide-y divide-[#E2E2EA]">
+          <div className="divide-y divide-line">
             {errors.map((e, i) => (
               <div key={e.code}>
                 <button
                   onClick={() => setOpenError(openError === i ? null : i)}
-                  className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left hover:bg-[#FAFAF5] transition-colors"
+                  className="w-full flex items-center justify-between gap-3 px-5 py-4 text-left hover:bg-tint transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[#D2003C] shrink-0" />
-                    <span className="font-semibold text-[#001E5A] text-sm">{e.code}</span>
+                    <div className="w-2 h-2 rounded-full bg-accent shrink-0" />
+                    <span className="font-semibold text-brand-ink text-sm">{e.code}</span>
                   </div>
                   <svg className={`w-4 h-4 text-gray-400 shrink-0 transition-transform ${openError === i ? "rotate-180" : ""}`}
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -109,14 +109,14 @@ export default function MSACCOAccountHelp() {
                   </svg>
                 </button>
                 {openError === i && (
-                  <div className="px-5 pb-5 bg-[#FAFAF5]">
+                  <div className="px-5 pb-5 bg-tint">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1.5">Cause</p>
                         <p className="text-gray-600 text-sm leading-relaxed">{e.cause}</p>
                       </div>
                       <div>
-                        <p className="text-xs font-bold text-[#001E5A] uppercase tracking-wider mb-1.5">What to Do</p>
+                        <p className="text-xs font-bold text-brand-ink uppercase tracking-wider mb-1.5">What to Do</p>
                         <p className="text-gray-600 text-sm leading-relaxed">{e.fix}</p>
                       </div>
                     </div>
@@ -128,12 +128,12 @@ export default function MSACCOAccountHelp() {
         </div>
 
         {/* Customer care */}
-        <div className="mt-6 bg-[#001E5A] rounded-2xl p-5 sm:p-6">
+        <div className="mt-6 bg-brand rounded-2xl p-5 sm:p-6">
           <h3 className="font-bold text-white mb-4 text-sm">MSACCO Customer Care</h3>
           <div className="flex flex-col sm:flex-row gap-3">
             <a href="tel:0800220220"
               className="flex items-center gap-3 bg-white/10 hover:bg-white/20 rounded-xl px-4 py-3 transition-colors">
-              <svg className="w-5 h-5 text-[#FFE100]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-5 h-5 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
               </svg>
               <div>

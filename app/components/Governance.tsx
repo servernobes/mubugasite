@@ -1,11 +1,12 @@
+import { cacheTag } from "next/cache";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
 
-const Avatar = ({ name, size = "lg" }: { name: string; size?: "lg" | "sm" }) => {
+// Fallback when there is no photo: initials filling the portrait area
+const Avatar = ({ name }: { name: string }) => {
   const initials = name.startsWith("[") ? "?" : name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
-  const dim = size === "lg" ? "w-16 h-16 text-xl" : "w-12 h-12 text-sm";
   return (
-    <div className={`${dim} rounded-full bg-[#001E5A] flex items-center justify-center mx-auto font-extrabold text-white`}>
+    <div className="absolute inset-0 flex items-center justify-center bg-tint-strong font-extrabold text-4xl text-brand-ink/40">
       {initials}
     </div>
   );
@@ -13,6 +14,7 @@ const Avatar = ({ name, size = "lg" }: { name: string; size?: "lg" | "sm" }) => 
 
 export default async function Governance() {
   "use cache";
+  cacheTag("cms"); // cleared by /api/revalidate when the admin saves
   const supabase = createCachedClient();
   const { data: members } = await supabase
     .from("board_members")
@@ -23,24 +25,30 @@ export default async function Governance() {
   const management = (members ?? []).filter((m) => m.group_type === "management");
 
   type Member = NonNullable<typeof members>[0];
-  const Card = ({ m, size }: { m: Member; size?: "lg" | "sm" }) => (
-    <div className={`bg-white rounded-2xl border p-5 text-center ${m.confirmed ? "border-[#E2E2EA]" : "border-dashed border-[#E2E2EA]"}`}>
-      {m.photo_url ? (
-        <Image src={m.photo_url} alt={m.name} width={64} height={64}
-          className={`${size === "sm" ? "w-12 h-12" : "w-16 h-16"} rounded-full object-cover mx-auto`} />
-      ) : (
-        <Avatar name={m.name} size={size ?? "lg"} />
-      )}
-      <p className={`font-bold text-sm mt-3 mb-0.5 ${m.confirmed ? "text-[#001E5A]" : "text-gray-400 italic"}`}>{m.name}</p>
-      <p className="text-[#D2003C] text-xs font-semibold">{m.role}</p>
-      {!m.confirmed && (
-        <span className="inline-block mt-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Pending</span>
-      )}
+  const Card = ({ m }: { m: Member }) => (
+    <div className={`bg-surface rounded-2xl border overflow-hidden ${m.confirmed ? "border-line" : "border-dashed border-line"}`}>
+      {/* Portrait photo — rectangular, full card width */}
+      <div className="relative aspect-[4/5]">
+        {m.photo_url ? (
+          <Image src={m.photo_url} alt={m.name} fill
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+            className="object-cover object-top" />
+        ) : (
+          <Avatar name={m.name} />
+        )}
+      </div>
+      <div className="p-4 text-center">
+        <p className={`font-bold text-sm mb-0.5 ${m.confirmed ? "text-brand-ink" : "text-gray-400 italic"}`}>{m.name}</p>
+        <p className="text-accent-ink text-xs font-semibold">{m.role}</p>
+        {!m.confirmed && (
+          <span className="inline-block mt-2 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">Pending</span>
+        )}
+      </div>
     </div>
   );
 
   return (
-    <section className="section-pad bg-[#FAFAF5]">
+    <section className="section-pad bg-tint">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="mb-14">
           <div className="mb-8">
@@ -52,11 +60,11 @@ export default async function Governance() {
             <p className="text-gray-400 text-sm">Board details will be published once confirmed by management.</p>
           ) : (
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-              {board.map((b) => <Card key={b.id} m={b} size="lg" />)}
+              {board.map((b) => <Card key={b.id} m={b} />)}
             </div>
           )}
         </div>
-        <div className="border-t border-[#E2E2EA] mb-14" />
+        <div className="border-t border-line mb-14" />
         <div>
           <div className="mb-8">
             <span className="section-label">Leadership</span>
@@ -66,8 +74,8 @@ export default async function Governance() {
           {management.length === 0 ? (
             <p className="text-gray-400 text-sm">Management profiles will be published once confirmed.</p>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {management.map((m) => <Card key={m.id} m={m} size="sm" />)}
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {management.map((m) => <Card key={m.id} m={m} />)}
             </div>
           )}
         </div>

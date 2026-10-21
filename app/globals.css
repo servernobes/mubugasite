@@ -1,31 +1,121 @@
 @import "tailwindcss";
 
-:root {
-  /* ── Exact logo colors ── */
-  --navy:        #001E5A;   /* dominant: circle, text, wordmark */
-  --navy-dark:   #000F3C;   /* deepest navy for footers/overlays */
-  --navy-mid:    #0F2470;   /* slightly lighter for hover states */
-  --red:         #D2003C;   /* ribbon / primary CTA */
-  --red-dark:    #A8002E;   /* red hover */
-  --yellow:      #FFE100;   /* sun / highlights / accents */
-  --yellow-dark: #D4B800;   /* yellow hover */
-  --green:       #00692D;   /* trees in logo / success states */
-  --green-light: #00783C;
+/* `dark:` utilities follow the .dark class on <html> (set by the theme script in layout.tsx) */
+@custom-variant dark (&:where(.dark, .dark *));
 
-  /* ── UI supporting palette ── */
-  --white:       #FFFFFF;
-  --cream:       #FAFAF5;   /* warm off-white for section bg */
-  --gray-soft:   #F4F4F6;
-  --gray-border: #E2E2EA;
-  --charcoal:    #0D0D2B;   /* near-navy for body text */
+/* ──────────────────────────────────────────────────────────────
+   Theme
+   The three base colours (--brand, --accent, --gold) are set by
+   the admin (Appearance page) and injected by <ThemeStyle/>.
+   Everything else is derived from them, for light and dark mode.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  /* Base colours — defaults, overridden from site_settings */
+  --brand:  #1E3A6E;
+  --accent: #C8424F;
+  --gold:   #F2C94C;
+
+  /* Derived brand shades */
+  --brand-hover:  color-mix(in oklab, var(--brand) 85%, white);
+  --brand-deep:   color-mix(in oklab, var(--brand) 80%, black);
+  --brand-ink:    var(--brand);
+  --accent-hover: color-mix(in oklab, var(--accent) 85%, black);
+  --accent-ink:   var(--accent);
+  --gold-ink:     color-mix(in oklab, var(--gold) 62%, black);
+
+  /* Neutrals, faintly tinted with the brand colour */
+  --page:        #FFFFFF;
+  --surface:     #FFFFFF;
+  --tint:        color-mix(in oklab, var(--brand) 4%, white);
+  --tint-strong: color-mix(in oklab, var(--brand) 8%, white);
+  --soft:        color-mix(in oklab, var(--brand) 6%, white);
+  --warm:        color-mix(in oklab, var(--gold) 10%, white);
+  --line:        color-mix(in oklab, var(--brand) 10%, #E5E7EB);
+  --ink:         #1F2937;
+  --charcoal:    #1A1F36;
+
+  --shadow-sm: 0 1px 3px color-mix(in oklab, var(--brand) 6%, transparent);
+  --shadow-md: 0 4px 12px color-mix(in oklab, var(--brand) 8%, transparent);
+  --shadow-lg: 0 8px 28px color-mix(in oklab, var(--brand) 10%, transparent);
+
+  color-scheme: light;
+}
+
+.dark {
+  --brand-ink:   color-mix(in oklab, var(--brand) 40%, white);
+  --accent-ink:  color-mix(in oklab, var(--accent) 65%, white);
+  --gold-ink:    var(--gold);
+  --brand-deep:  color-mix(in oklab, var(--brand) 55%, black);
+
+  --page:        #0B1220;
+  --surface:     #111A2B;
+  --tint:        color-mix(in oklab, var(--brand) 10%, #0B1220);
+  --tint-strong: color-mix(in oklab, var(--brand) 22%, #0B1220);
+  --soft:        color-mix(in oklab, var(--brand) 16%, #0B1220);
+  --warm:        color-mix(in oklab, var(--gold) 8%, #111A2B);
+  --line:        color-mix(in oklab, var(--brand) 25%, #1F2937);
+  --ink:         #E5E7EB;
+  --charcoal:    #E5E7EB;
+
+  /* Re-map Tailwind palette shades used for body text and notice boxes */
+  --color-gray-50:  #141D2F;
+  --color-gray-100: #1A2438;
+  --color-gray-200: #263248;
+  --color-gray-300: #3A4760;
+  --color-gray-400: #7C8698;
+  --color-gray-500: #9AA3B2;
+  --color-gray-600: #B4BCC8;
+  --color-gray-700: #D1D5DB;
+  --color-gray-800: #E5E7EB;
+  --color-gray-900: #F3F4F6;
+  --color-amber-50:  #2A2312;
+  --color-amber-100: #3A2E14;
+  --color-amber-200: #5C4718;
+  --color-amber-700: #F5C26B;
+  --color-amber-800: #FCD38D;
+  --color-green-50:  #10261C;
+  --color-green-700: #7DD3A8;
+  --color-blue-50:   #102036;
+  --color-blue-700:  #93B8F0;
+  --color-orange-50:  #2B1A10;
+  --color-orange-700: #F6AD7B;
+  --color-purple-50:  #221634;
+  --color-purple-700: #C7A6F5;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 28px rgba(0, 0, 0, 0.45);
+
+  color-scheme: dark;
+}
+
+/* Expose the theme as Tailwind colours: bg-brand, text-brand-ink, border-line … */
+@theme inline {
+  --color-brand:        var(--brand);
+  --color-brand-hover:  var(--brand-hover);
+  --color-brand-deep:   var(--brand-deep);
+  --color-brand-ink:    var(--brand-ink);
+  --color-accent:       var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-ink:   var(--accent-ink);
+  --color-gold:         var(--gold);
+  --color-gold-ink:     var(--gold-ink);
+  --color-surface:      var(--surface);
+  --color-tint:         var(--tint);
+  --color-tint-strong:  var(--tint-strong);
+  --color-soft:         var(--soft);
+  --color-warm:         var(--warm);
+  --color-line:         var(--line);
+  --color-ink:          var(--ink);
 }
 
 body {
-  background: #ffffff;
+  background: var(--page);
   color: var(--charcoal);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 html { scroll-behavior: smooth; }
@@ -38,13 +128,41 @@ html { scroll-behavior: smooth; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: var(--red);
+  color: var(--accent-ink);
   margin-bottom: 0.5rem;
 }
 
 .section-title {
   font-size: clamp(1.6rem, 3vw, 2.4rem);
   font-weight: 800;
-  color: var(--navy);
+  color: var(--brand-ink);
   line-height: 1.2;
 }
+
+/* Short accent bar under section headings */
+.section-title::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-top: 0.75rem;
+  border-radius: 2px;
+  background: var(--accent);
+  opacity: 0.85;
+}
+.text-center .section-title::after,
+.section-title.text-center::after { margin-inline: auto; }
+
+/* ── Google Translate (see LanguageSwitcher.tsx) ──
+   Hide Google's own toolbar, tooltips and highlight so only our language picker shows */
+iframe.skiptranslate,
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+.goog-tooltip,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-yAWNEb-L7lbkb { display: none !important; }
+body { top: 0 !important; }
+.goog-text-highlight,
+font[style*="background-color"] { background: none !important; box-shadow: none !important; }

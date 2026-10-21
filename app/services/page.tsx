@@ -39,25 +39,25 @@ const procedures = [
 export default function ServicesPage() {
   return (
     <>
-      <div className="bg-[#001E5A] py-10 sm:py-14">
+      <div className="bg-gradient-to-b from-tint-strong to-surface border-b border-line py-10 sm:py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <span className="section-label text-[#D2003C]">What We Offer</span>
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-white mt-1">More Ways to Access Financial Services</h1>
-          <p className="text-white/60 mt-3 max-w-2xl text-sm sm:text-base">
+          <span className="section-label text-accent-ink">What We Offer</span>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-brand-ink mt-1">More Ways to Access Financial Services</h1>
+          <p className="text-gray-600 mt-3 max-w-2xl text-sm sm:text-base">
             Beyond savings and loans, MUSACCO provides additional services to make banking more accessible for members across Kisoro.
           </p>
         </div>
       </div>
 
-      <section className="section-pad bg-[#FAFAF5]">
+      <section className="section-pad bg-tint">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
 
           {/* MSACCO highlight — links to the dedicated page */}
-          <div className="bg-[#001E5A] rounded-2xl overflow-hidden">
+          <div className="bg-brand rounded-2xl overflow-hidden">
             <div className="p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center gap-6">
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="bg-[#D2003C] rounded-lg px-2.5 py-1">
+                  <div className="bg-accent rounded-lg px-2.5 py-1">
                     <p className="text-white text-xs font-black uppercase tracking-wider">MSACCO</p>
                   </div>
                   <span className="text-white/50 text-xs">Mobile Financial Services</span>
@@ -69,10 +69,10 @@ export default function ServicesPage() {
                 <div className="flex flex-wrap gap-2 mb-5">
                   <span className="bg-white/10 border border-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-lg">MTN: *165*6*3#</span>
                   <span className="bg-white/10 border border-white/20 text-white text-xs font-bold px-3 py-1.5 rounded-lg">Airtel: *185*7*3*1#</span>
-                  <span className="bg-[#FFE100]/20 border border-[#FFE100]/30 text-[#FFE100] text-xs font-bold px-3 py-1.5 rounded-lg">ID: MUBUG/230256</span>
+                  <span className="bg-gold/20 border border-gold/30 text-gold text-xs font-bold px-3 py-1.5 rounded-lg">ID: MUBUG/230256</span>
                 </div>
                 <Link href="/msacco"
-                  className="inline-flex items-center gap-2 bg-[#D2003C] hover:bg-[#A8002E] text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  className="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
                   Full MSACCO Guide
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
@@ -91,9 +91,9 @@ export default function ServicesPage() {
           </div>
 
           {/* MUSACCO Procedures */}
-          <div className="bg-white rounded-2xl border border-[#E2E2EA] overflow-hidden">
-            <div className="bg-[#001E5A] px-6 sm:px-8 py-5 flex items-center gap-4">
-              <div className="w-10 h-10 bg-[#D2003C] rounded-xl flex items-center justify-center shrink-0">
+          <div className="bg-surface rounded-2xl border border-line overflow-hidden">
+            <div className="bg-brand px-6 sm:px-8 py-5 flex items-center gap-4">
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
                 </svg>
@@ -107,20 +107,20 @@ export default function ServicesPage() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                 {procedures.map((p) => (
                   <div key={p.step} className="flex items-start gap-4">
-                    <div className="w-9 h-9 rounded-full bg-[#D2003C] flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center shrink-0 mt-0.5">
                       <span className="text-white font-extrabold text-xs">{p.step}</span>
                     </div>
                     <div>
-                      <h3 className="font-bold text-[#001E5A] text-sm mb-1">{p.title}</h3>
+                      <h3 className="font-bold text-brand-ink text-sm mb-1">{p.title}</h3>
                       <p className="text-gray-500 text-xs leading-relaxed">{p.desc}</p>
                     </div>
                   </div>
                 ))}
               </div>
-              <div className="mt-6 pt-5 border-t border-[#E2E2EA] flex flex-col sm:flex-row items-start sm:items-center gap-4">
+              <div className="mt-6 pt-5 border-t border-line flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <p className="text-gray-500 text-sm">Ready to get started? Visit any of our offices or call us.</p>
                 <Link href="/contact"
-                  className="shrink-0 bg-[#001E5A] hover:bg-[#D2003C] text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                  className="shrink-0 bg-brand hover:bg-accent text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
                   Contact Us
                 </Link>
               </div>
@@ -128,9 +128,9 @@ export default function ServicesPage() {
           </div>
 
           {/* Agency Banking — own agents */}
-          <div className="bg-white rounded-2xl border border-[#E2E2EA] overflow-hidden">
-            <div className="bg-[#001E5A] px-6 sm:px-8 py-5 flex items-center gap-4">
-              <div className="w-10 h-10 bg-[#D2003C] rounded-xl flex items-center justify-center shrink-0">
+          <div className="bg-surface rounded-2xl border border-line overflow-hidden">
+            <div className="bg-brand px-6 sm:px-8 py-5 flex items-center gap-4">
+              <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center shrink-0">
                 <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
                 </svg>
@@ -150,7 +150,7 @@ export default function ServicesPage() {
                     Through MUSACCO agents you can make loan repayments, deposit savings and conduct other approved transactions. Always ensure you are transacting with an officially authorised MUSACCO agent.
                   </p>
                   <Link href="/contact?enquiry=services"
-                    className="inline-flex items-center gap-2 bg-[#001E5A] hover:bg-[#D2003C] text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
+                    className="inline-flex items-center gap-2 bg-brand hover:bg-accent text-white font-bold text-sm px-5 py-2.5 rounded-lg transition-colors">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -164,14 +164,14 @@ export default function ServicesPage() {
                     { title: "Balance Enquiries", desc: "Check your account balance through MUSACCO agents." },
                     { title: "Authorised & Secure", desc: "Only transact with agents officially approved by MUSACCO." },
                   ].map((f) => (
-                    <div key={f.title} className="flex items-start gap-3 bg-[#FAFAF5] rounded-xl p-3.5 border border-[#E2E2EA]">
-                      <div className="w-8 h-8 bg-[#001E5A]/10 rounded-lg flex items-center justify-center shrink-0">
-                        <svg className="w-4 h-4 text-[#001E5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div key={f.title} className="flex items-start gap-3 bg-tint rounded-xl p-3.5 border border-line">
+                      <div className="w-8 h-8 bg-brand/10 rounded-lg flex items-center justify-center shrink-0">
+                        <svg className="w-4 h-4 text-brand-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
                         </svg>
                       </div>
                       <div>
-                        <p className="font-bold text-[#001E5A] text-xs">{f.title}</p>
+                        <p className="font-bold text-brand-ink text-xs">{f.title}</p>
                         <p className="text-gray-500 text-xs mt-0.5">{f.desc}</p>
                       </div>
                     </div>
@@ -182,20 +182,20 @@ export default function ServicesPage() {
           </div>
 
           {/* Mobile Banking */}
-          <div className="bg-white rounded-2xl border border-[#E2E2EA] p-6 sm:p-8">
+          <div className="bg-surface rounded-2xl border border-line p-6 sm:p-8">
             <div className="flex items-start gap-5">
-              <div className="w-12 h-12 bg-[#001E5A]/10 rounded-xl flex items-center justify-center shrink-0">
-                <svg className="w-6 h-6 text-[#001E5A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-brand/10 rounded-xl flex items-center justify-center shrink-0">
+                <svg className="w-6 h-6 text-brand-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="font-bold text-[#001E5A] text-xl mb-2">Mobile Banking</h2>
+                <h2 className="font-bold text-brand-ink text-xl mb-2">Mobile Banking</h2>
                 <p className="text-gray-600 text-sm leading-relaxed mb-3">
                   Contact our office to enquire about currently available mobile banking options including mobile money integrations for deposits and repayments.
                 </p>
                 <a href="tel:0394841360"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-[#001E5A] hover:underline">
+                  className="inline-flex items-center gap-2 text-sm font-semibold text-brand-ink hover:underline">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
                   </svg>
@@ -206,26 +206,26 @@ export default function ServicesPage() {
           </div>
 
           {/* Forms & Downloads */}
-          <div className="bg-white rounded-2xl border border-[#E2E2EA] p-6 sm:p-8">
+          <div className="bg-surface rounded-2xl border border-line p-6 sm:p-8">
             <div className="flex items-start gap-5">
-              <div className="w-12 h-12 bg-[#D2003C]/10 rounded-xl flex items-center justify-center shrink-0">
-                <svg className="w-6 h-6 text-[#D2003C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center shrink-0">
+                <svg className="w-6 h-6 text-accent-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
               </div>
               <div className="flex-1">
-                <h2 className="font-bold text-[#001E5A] text-xl mb-2">Forms & Downloads</h2>
+                <h2 className="font-bold text-brand-ink text-xl mb-2">Forms & Downloads</h2>
                 <p className="text-gray-600 text-sm leading-relaxed mb-4">
                   Visit any MUSACCO office to collect application forms for membership, loans and savings accounts.
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {["Membership Application Form","Loan Application Form","Savings Account Opening Form","Loan Guarantor Form"].map((f) => (
-                    <div key={f} className="flex items-center gap-3 bg-[#FAFAF5] border border-[#E2E2EA] rounded-lg p-3">
+                    <div key={f} className="flex items-center gap-3 bg-tint border border-line rounded-lg p-3">
                       <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                       </svg>
                       <span className="text-sm text-gray-600">{f}</span>
-                      <span className="ml-auto text-xs font-semibold text-[#001E5A]">At office</span>
+                      <span className="ml-auto text-xs font-semibold text-brand-ink">At office</span>
                     </div>
                   ))}
                 </div>

@@ -5,6 +5,8 @@ import TopBar from "./components/TopBar";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import MobileCTA from "./components/MobileCTA";
+import ThemeStyle from "./components/ThemeStyle";
+import TranslateLoader from "./components/TranslateLoader";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 
@@ -26,8 +28,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={geistSans.variable}>
+    <html lang="en" className={geistSans.variable} suppressHydrationWarning>
       <head>
+        <ThemeStyle />
         <link rel="icon" href="/musacco-logo.png" type="image/png"/>
         <link rel="shortcut icon" href="/musacco-logo.png" type="image/png"/>
         <link rel="apple-touch-icon" href="/musacco-logo.png"/>
@@ -39,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <main className="flex-1 pb-14 lg:pb-0">{children}</main>
         <Footer />
         <MobileCTA />
+        <TranslateLoader />
       </body>
     </html>
   );
