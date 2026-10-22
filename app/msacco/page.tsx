@@ -78,7 +78,7 @@ export default function MSACCOPage() {
       </div>
 
       {/* Tab navigation */}
-      <div className="bg-surface border-b border-line sticky top-[76px] z-40">
+      <div className="bg-surface border-b border-line sticky top-[84px] lg:top-[100px] z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex gap-0 overflow-x-auto">
             {tabs.map((t) => (

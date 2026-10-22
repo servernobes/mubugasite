@@ -7,10 +7,17 @@ import Footer from "./components/Footer";
 import MobileCTA from "./components/MobileCTA";
 import ThemeStyle from "./components/ThemeStyle";
 import TranslateLoader from "./components/TranslateLoader";
+import VisitTracker from "./components/VisitTracker";
+import { SITE_URL } from "@/lib/site-url";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  // Google Search Console "HTML tag" verification: set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION in Vercel
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
+    : {}),
   title: {
     default: "Mubuga SACCO Ltd – Development Through Rural Saving",
     template: "%s | Mubuga SACCO Ltd",
@@ -43,6 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <MobileCTA />
         <TranslateLoader />
+        <VisitTracker />
       </body>
     </html>
   );

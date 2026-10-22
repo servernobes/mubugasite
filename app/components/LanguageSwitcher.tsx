@@ -21,7 +21,7 @@ export function readLang(): LangCode {
   return LANGUAGES.some((l) => l.code === code) ? (code as LangCode) : "en";
 }
 
-function setLang(code: LangCode) {
+export function setLang(code: LangCode) {
   const host = location.hostname;
   // The cookie may exist for the bare host and for the parent domain — clear/set both
   const domains = ["", `;domain=${host}`, host.includes(".") ? `;domain=.${host.split(".").slice(-2).join(".")}` : ""];

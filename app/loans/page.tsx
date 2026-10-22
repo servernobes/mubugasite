@@ -36,7 +36,7 @@ export default async function LoansPage() {
       </div>
 
       <section className="section-pad bg-surface">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="bg-amber-50 border border-amber-200 rounded-xl p-5 mb-6">
             <p className="text-amber-800 text-sm">
               <strong>Important:</strong> Loan terms, interest rates, limits and eligibility requirements must be confirmed with Mubuga SACCO staff before applying.

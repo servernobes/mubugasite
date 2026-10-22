@@ -1,5 +1,16 @@
 import Link from "next/link";
 
+// Sidebar "Other Savings Products" — [title, slug], same order as the savings list
+const SAVINGS_ACCOUNTS: [string, string][] = [
+  ["Ordinary Savings", "ordinary"],
+  ["Voluntary Savings", "voluntary"],
+  ["Fixed Deposit Account", "fixed-deposit"],
+  ["Junior / Minor Account", "junior"],
+  ["Individual Account", "individual"],
+  ["Group Account", "group"],
+  ["Institutional Account", "institutional"],
+];
+
 interface SavingsDetailProps {
   title: string;
   tagline: string;
@@ -58,11 +69,11 @@ export default function SavingsDetailTemplate({ title, tagline, description, fea
             <div className="bg-surface border border-line rounded-xl p-4 sm:p-5">
               <h4 className="font-bold text-brand-ink mb-3 text-sm">Other Savings Products</h4>
               <ul className="space-y-1.5">
-                {["Ordinary Savings","Voluntary Savings","Junior / Minor Savings","VSLA Savings","School Fees Collection"].map((s) => (
-                  <li key={s}>
-                    <Link href={`/savings/${s.toLowerCase().replace(/[^a-z0-9]+/g,"-")}`}
+                {SAVINGS_ACCOUNTS.filter(([label]) => label !== title).map(([label, slug]) => (
+                  <li key={slug}>
+                    <Link href={`/savings/${slug}`}
                       className="text-sm text-gray-600 hover:text-brand-ink hover:underline">
-                      {s}
+                      {label}
                     </Link>
                   </li>
                 ))}

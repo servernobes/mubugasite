@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import { LOAN_DETAILS, SAVINGS_DETAILS, type FAQ } from "@/lib/product-details";
 
-// Expandable product cards — used for both savings and loan products.
+// Savings / loan products as cards: one column on phones, a grid on larger screens.
+// "+" opens the card across the full row and shows all of the product's details in place.
 type Product = { id: string; slug: string; title: string; description: string };
 
 const ICONS = {
@@ -11,28 +13,110 @@ const ICONS = {
 };
 
 const COPY = {
-  savings: { href: "/savings", more: "Click below to view full details, eligibility and how to apply for this savings account.", cta: "Enquire About Savings", empty: "Savings products coming soon." },
-  loans:   { href: "/loans",   more: "Click below to view full details, eligibility requirements, documents needed and how to apply.", cta: "Enquire About Loans", empty: "Loan products coming soon." },
+  savings: { cta: "Enquire About Savings", empty: "Savings products coming soon." },
+  loans:   { cta: "Enquire About Loans",   empty: "Loan products coming soon." },
 };
+
+const CHECK = "M5 13l4 4L19 7";
+
+function Bullets({ title, items }: { title: string; items: string[] }) {
+  if (!items.length) return null;
+  return (
+    <div>
+      <h4 className="font-bold text-brand-ink text-sm mb-2.5">{title}</h4>
+      <ul className="space-y-2">
+        {items.map((it) => (
+          <li key={it} className="flex items-start gap-2.5 text-sm text-gray-700">
+            <svg className="w-4 h-4 text-accent-ink mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d={CHECK}/>
+            </svg>
+            {it}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function Faqs({ faqs }: { faqs: FAQ[] }) {
+  if (!faqs.length) return null;
+  return (
+    <div>
+      <h4 className="font-bold text-brand-ink text-sm mb-2.5">Frequently asked questions</h4>
+      <dl className="space-y-2.5">
+        {faqs.map((f) => (
+          <div key={f.q} className="bg-surface border border-line rounded-lg p-3.5">
+            <dt className="font-semibold text-brand-ink text-sm">{f.q}</dt>
+            <dd className="text-gray-600 text-sm mt-1 leading-relaxed">{f.a}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+function Details({ kind, slug, fallback }: { kind: "savings" | "loans"; slug: string; fallback: string }) {
+  if (kind === "loans") {
+    const d = LOAN_DETAILS[slug];
+    if (!d) return <p className="text-gray-600 text-sm leading-relaxed">{fallback}</p>;
+    return (
+      <div className="space-y-6">
+        <div>
+          {d.tagline && <p className="text-accent-ink font-semibold text-sm mb-1.5">{d.tagline}</p>}
+          <p className="text-gray-600 text-sm leading-relaxed">{d.description}</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Bullets title="What it can be used for" items={d.purpose} />
+          <Bullets title="Who can apply" items={d.eligibility} />
+          <Bullets title="Documents needed" items={d.documents} />
+        </div>
+        <Faqs faqs={d.faqs} />
+      </div>
+    );
+  }
+  const d = SAVINGS_DETAILS[slug];
+  if (!d) return <p className="text-gray-600 text-sm leading-relaxed">{fallback}</p>;
+  return (
+    <div className="space-y-6">
+      <div>
+        {d.tagline && <p className="text-accent-ink font-semibold text-sm mb-1.5">{d.tagline}</p>}
+        <p className="text-gray-600 text-sm leading-relaxed">{d.description}</p>
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Bullets title="Features" items={d.features} />
+        <Bullets title="Suitable for" items={d.suitableFor} />
+      </div>
+      <Faqs faqs={d.faqs} />
+    </div>
+  );
+}
 
 export default function ProductList({ kind, items }: { kind: "savings" | "loans"; items: Product[] }) {
   const [expanded, setExpanded] = useState<string | null>(null);
+  const cardRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const copy = COPY[kind];
+
+  const toggle = (id: string) => {
+    const opening = expanded !== id;
+    setExpanded(opening ? id : null);
+    // The opened card moves to its own full-width row; keep it in view
+    if (opening) requestAnimationFrame(() => cardRefs.current[id]?.scrollIntoView({ behavior: "smooth", block: "nearest" }));
+  };
 
   return (
     <>
       {items.length === 0 ? (
         <p className="text-gray-400 text-sm py-12 text-center">{copy.empty}</p>
       ) : (
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4 grid-flow-row-dense">
           {items.map((p) => {
             const isOpen = expanded === p.id;
             return (
-              <div key={p.id}
-                className={`bg-tint rounded-xl border transition-all ${
-                  isOpen ? "border-brand-ink/40 shadow-md" : "border-line hover:border-brand-ink/30"
+              <div key={p.id} ref={(el) => { cardRefs.current[p.id] = el; }}
+                className={`scroll-mt-28 flex flex-col bg-tint rounded-xl border transition-all ${
+                  isOpen ? "md:col-span-2 lg:col-span-3 border-brand-ink/40 shadow-md" : "border-line hover:border-brand-ink/30"
                 }`}>
-                <button onClick={() => setExpanded(isOpen ? null : p.id)} className="w-full text-left p-4 sm:p-5">
+                <button onClick={() => toggle(p.id)} aria-expanded={isOpen} className="w-full grow text-left p-4 sm:p-5">
                   <div className="flex items-start justify-between gap-2 sm:gap-3">
                     <div className="flex items-start gap-2.5 sm:gap-3 flex-1 min-w-0">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
@@ -42,7 +126,7 @@ export default function ProductList({ kind, items }: { kind: "savings" | "loans"
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-bold text-brand-ink text-sm sm:text-base mb-1">{p.title}</h3>
-                        <p className="text-gray-500 text-xs sm:text-sm leading-relaxed line-clamp-2 sm:line-clamp-none">{p.description}</p>
+                        <p className={`text-gray-500 text-xs sm:text-sm leading-relaxed ${isOpen ? "" : "line-clamp-3"}`}>{p.description}</p>
                       </div>
                     </div>
                     <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
@@ -56,20 +140,20 @@ export default function ProductList({ kind, items }: { kind: "savings" | "loans"
                 </button>
 
                 {isOpen && (
-                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 border-t border-line pt-3 sm:pt-4">
-                    <p className="text-gray-500 text-xs leading-relaxed mb-3">{copy.more}</p>
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                      <Link href={`${copy.href}/${p.slug}`}
-                        className="inline-flex items-center justify-center gap-1 text-sm font-semibold text-white bg-accent hover:bg-accent-hover px-4 py-2 rounded-lg transition-colors">
-                        View full details
+                  <div className="px-4 sm:px-6 pb-5 sm:pb-6 border-t border-line pt-5">
+                    <Details kind={kind} slug={p.slug} fallback={p.description} />
+                    <div className="mt-6 flex flex-col sm:flex-row gap-2 sm:gap-3">
+                      <Link href={`/contact?enquiry=${kind}`}
+                        className="inline-flex items-center justify-center gap-1.5 text-sm font-semibold text-white bg-accent hover:bg-accent-hover px-4 py-2 rounded-lg transition-colors">
+                        {kind === "loans" ? "Apply / Enquire" : "Open an account / Enquire"}
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                       </Link>
-                      <Link href={`/contact?enquiry=${kind}`}
+                      <button type="button" onClick={() => toggle(p.id)}
                         className="inline-flex items-center justify-center text-sm font-semibold text-brand-ink border border-brand-ink/30 hover:bg-brand/5 px-4 py-2 rounded-lg transition-colors">
-                        Enquire
-                      </Link>
+                        Close
+                      </button>
                     </div>
                   </div>
                 )}

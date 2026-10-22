@@ -22,9 +22,14 @@ export default async function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-24 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
         {/* Text */}
         <div>
-          <span className="inline-block bg-accent/10 text-accent-ink text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded-full mb-5">
-            Kisoro District, Uganda — Est. SACCO
-          </span>
+          {/* SACCO motto (Rufumbira/Kinyarwanda) — never machine-translated */}
+          <div className="mb-5">
+            <span className="notranslate inline-block bg-accent/10 text-accent-ink text-xs sm:text-sm font-bold italic px-3.5 py-1.5 rounded-full"
+              translate="no" lang="rw">
+              &ldquo;Ikigega cy&rsquo;Abaturage Kirwanya Ubukene&rdquo;
+            </span>
+            <p className="text-gray-500 text-xs mt-1.5 ml-1">The people&rsquo;s fund that fights poverty</p>
+          </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-brand-ink leading-[1.15] mb-5 md:mb-6">
             Growing Together.<br />
             <span className="text-accent-ink">Building Financial</span><br />
@@ -51,7 +56,7 @@ export default async function Hero() {
           <div className="mt-8 pt-6 border-t border-line grid grid-cols-3 gap-3">
             {[
               { label: "Kisoro District", sub: "Head Office" },
-              { label: "Est. SACCO", sub: "Kisoro, Uganda" },
+              { label: "Est. 2005", sub: "Serving Kisoro since 2005" },
               { label: "Multiple Products", sub: "Loans & Savings" },
             ].map((t) => (
               <div key={t.label}>

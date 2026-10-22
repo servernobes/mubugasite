@@ -72,7 +72,7 @@ export default async function PublicationsPage() {
           )}
 
           {groups.map((g) => (
-            <div key={g.id} id={g.id} className="scroll-mt-24">
+            <div key={g.id} id={g.id} className="scroll-mt-28">
               <h2 className="section-title !text-xl sm:!text-2xl">{g.label}</h2>
               <p className="text-gray-500 text-sm mt-3 mb-5">{g.desc}</p>
               <div className="bg-surface rounded-2xl border border-line divide-y divide-line overflow-hidden">

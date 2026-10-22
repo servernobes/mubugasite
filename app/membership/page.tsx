@@ -79,7 +79,7 @@ export default async function MembershipPage() {
       </div>
 
       {/* Benefits */}
-      <section id="benefits" className="section-pad bg-surface scroll-mt-24">
+      <section id="benefits" className="section-pad bg-surface scroll-mt-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <span className="section-label">Why join</span>
           <h2 className="section-title mb-8">Membership Benefits</h2>
@@ -103,7 +103,7 @@ export default async function MembershipPage() {
       </section>
 
       {/* Steps */}
-      <section id="join" className="section-pad bg-tint scroll-mt-24">
+      <section id="join" className="section-pad bg-tint scroll-mt-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <span className="section-label">Getting started</span>
           <h2 className="section-title mb-8">How to Become a Member</h2>
@@ -128,7 +128,7 @@ export default async function MembershipPage() {
       </section>
 
       {/* Account types */}
-      <section id="accounts" className="section-pad bg-surface scroll-mt-24">
+      <section id="accounts" className="section-pad bg-surface scroll-mt-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <span className="section-label">Account opening</span>
           <h2 className="section-title mb-4">Choose Your Account Type</h2>

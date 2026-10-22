@@ -37,7 +37,7 @@ export default function AboutPage() {
       </div>
 
       {/* Who We Are */}
-      <section id="who" className="section-pad bg-surface scroll-mt-20">
+      <section id="who" className="section-pad bg-surface scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 items-start">
           <div>
             <span className="section-label">Our Story</span>
@@ -71,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       {/* Vision / Mission / Values */}
-      <section id="mission" className="section-pad bg-tint scroll-mt-20">
+      <section id="mission" className="section-pad bg-tint scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <span className="section-label">Our Direction</span>
@@ -96,12 +96,12 @@ export default function AboutPage() {
       </section>
 
       {/* Board of Directors & Top Management */}
-      <div id="governance" className="scroll-mt-20">
+      <div id="governance" className="scroll-mt-28">
         <Governance />
       </div>
 
       {/* Staff */}
-      <div id="team" className="scroll-mt-20">
+      <div id="team" className="scroll-mt-28">
         <Staff />
       </div>
 

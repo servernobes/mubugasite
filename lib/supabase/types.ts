@@ -83,6 +83,19 @@ export type Database = {
         Insert: Omit<Database["public"]["Tables"]["documents"]["Row"], "id" | "created_at" | "updated_at">;
         Update: Partial<Database["public"]["Tables"]["documents"]["Insert"]>;
       };
+      page_views: {
+        Row: {
+          id: number;
+          path: string;
+          source: string | null;
+          visitor_id: string | null;
+          device: "mobile" | "tablet" | "desktop" | null;
+          lang: string | null;
+          created_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["page_views"]["Row"], "id" | "created_at">;
+        Update: Partial<Database["public"]["Tables"]["page_views"]["Insert"]>;
+      };
       site_settings: {
         Row: {
           key: string;

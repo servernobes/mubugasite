@@ -57,7 +57,7 @@ export default async function MediaPage() {
       )}
 
       {videos.length > 0 && (
-        <section id="videos" className="section-pad bg-tint scroll-mt-24">
+        <section id="videos" className="section-pad bg-tint scroll-mt-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <h2 className="section-title mb-8">Videos</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,7 +81,7 @@ export default async function MediaPage() {
       )}
 
       {photos.length > 0 && (
-        <section id="photos" className="section-pad bg-surface scroll-mt-24">
+        <section id="photos" className="section-pad bg-surface scroll-mt-28">
           <div className="max-w-7xl mx-auto px-4 sm:px-6">
             <h2 className="section-title mb-8">Photo Gallery</h2>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
