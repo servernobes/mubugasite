@@ -166,3 +166,23 @@ iframe.skiptranslate,
 body { top: 0 !important; }
 .goog-text-highlight,
 font[style*="background-color"] { background: none !important; box-shadow: none !important; }
+
+/* ── Translated pages (Rufumbira / Rukiga-Runyankore) ──
+   Translated words are longer than English. Keep the full menu on big screens, but let each
+   link use slightly smaller text and wrap onto two lines so the row still fits.
+   "lang-translated" is set on <html> by the early script in ThemeStyle.tsx. */
+@media (min-width: 1024px) {
+  html.lang-translated [data-nav="desktop"] a {
+    white-space: normal;
+    font-size: 12px;
+    line-height: 1.15;
+    max-width: 7.5rem;
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: center;
+  }
+}
+
+/* Side-swipe rows on phones: hide the scrollbar but keep swiping */
+.no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

@@ -27,19 +27,29 @@ const BENEFITS = [
 const STEPS = [
   { title: "Check eligibility", desc: "Membership is open to eligible individuals, groups and institutions in our community. Ask our staff if you are unsure." },
   { title: "Choose account type", desc: "Pick the account that fits you: Individual, Group / VSLA, Institution, or Junior for a child." },
-  { title: "Submit requirements", desc: "Visit any Mubuga SACCO office, fill in the membership application form, bring your documents and pay your share capital contribution." },
+  { title: "Submit requirements", desc: "Visit any Mubuga SACCO office with two passport-size photos and your national ID, fill in the membership application form and pay UGX 40,000 (share capital, membership fee and initial deposit)." },
   { title: "Get confirmation", desc: "Once approved, you can start saving, apply for loans and register for MSACCO mobile services." },
 ];
 
+// What every new member brings and pays (confirmed by Mubuga SACCO)
+const REQUIRED_DOCS = ["Two (2) recent passport-size photographs", "Valid national ID"];
+const FEES: [string, number][] = [
+  ["Share capital", 10000],
+  ["Membership fee", 20000],
+  ["Initial savings deposit", 10000],
+];
+const FEES_TOTAL = FEES.reduce((sum, [, amount]) => sum + amount, 0);
+const ugx = (n: number) => `UGX ${n.toLocaleString("en-US")}`;
+
 const ACCOUNTS = [
   { title: "Individual", who: "Adults who want to save and borrow in their own name.",
-    needs: ["Valid national identification document", "Completed membership application form", "Recent passport-size photographs", "Share capital contribution"] },
+    needs: ["Two (2) passport-size photographs", "Valid national ID", "Completed membership application form", "UGX 40,000: share capital 10,000 + membership fee 20,000 + initial deposit 10,000"] },
   { title: "Group / VSLA", who: "Village savings groups, associations and other registered groups.",
-    needs: ["Group registration or recognition documents", "Minutes authorising the account and its signatories", "Identification of the signatories", "Completed group application form"] },
+    needs: ["Group registration or recognition documents", "Minutes authorising the account and its signatories", "Two (2) passport-size photographs and a valid national ID for each signatory", "Completed group application form", "UGX 40,000: share capital 10,000 + membership fee 20,000 + initial deposit 10,000"] },
   { title: "Institution", who: "Schools, churches, cooperatives and other organisations, including school fees collection.",
-    needs: ["Registration certificate of the institution", "Resolution naming the authorised signatories", "Identification of the signatories", "Completed institution application form"] },
+    needs: ["Registration certificate of the institution", "Resolution naming the authorised signatories", "Two (2) passport-size photographs and a valid national ID for each signatory", "Completed institution application form", "UGX 40,000: share capital 10,000 + membership fee 20,000 + initial deposit 10,000"] },
   { title: "Junior", who: "Children's savings accounts opened and run by a parent or guardian.",
-    needs: ["Child's birth certificate or other proof of age", "Parent or guardian's identification", "Parent or guardian's details on the application form"] },
+    needs: ["Child's birth certificate or other proof of age", "Two (2) passport-size photographs of the child", "Parent or guardian's valid national ID", "Parent or guardian's details on the application form", "UGX 40,000: share capital 10,000 + membership fee 20,000 + initial deposit 10,000"] },
 ];
 
 export default async function MembershipPage() {
@@ -68,7 +78,7 @@ export default async function MembershipPage() {
             Discover how to join Mubuga SACCO, the benefits of being a member and the accounts you can open.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {[["Membership Benefits", "#benefits"], ["How to Become a Member", "#join"], ["Account Opening", "#accounts"]].map(([label, href]) => (
+            {[["Membership Benefits", "#benefits"], ["How to Become a Member", "#join"], ["Requirements", "#requirements"], ["Account Opening", "#accounts"]].map(([label, href]) => (
               <a key={href} href={href}
                 className="text-xs font-semibold text-gray-600 hover:text-brand-ink border border-line hover:border-brand-ink/30 bg-surface px-3 py-1.5 rounded-full transition-colors">
                 {label}
@@ -127,8 +137,52 @@ export default async function MembershipPage() {
         </div>
       </section>
 
+      {/* Requirements */}
+      <section id="requirements" className="section-pad bg-surface scroll-mt-28">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <span className="section-label">What you need</span>
+          <h2 className="section-title mb-4">Membership Requirements</h2>
+          <p className="text-gray-600 text-sm mb-8">
+            These apply to every account type: individual, group, institution and junior. Groups and institutions bring photos and IDs for each signatory. Bring them to any Mubuga SACCO office; our staff will help you fill in the application form.
+          </p>
+          <div className="flex flex-col gap-4">
+            <div className="rounded-2xl border border-line bg-tint p-6">
+              <h3 className="font-bold text-brand-ink mb-3">Bring with you</h3>
+              <ul className="space-y-2.5">
+                {REQUIRED_DOCS.map((d) => (
+                  <li key={d} className="flex items-start gap-2.5 text-sm text-gray-700">
+                    <svg className="w-4 h-4 text-accent-ink mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+                    </svg>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-2xl border border-line bg-tint p-6">
+              <h3 className="font-bold text-brand-ink mb-3">Pay when joining</h3>
+              <dl className="divide-y divide-line">
+                {FEES.map(([label, amount]) => (
+                  <div key={label} className="flex items-center justify-between gap-4 py-2.5 text-sm">
+                    <dt className="text-gray-700">{label}</dt>
+                    <dd className="font-semibold text-brand-ink tabular-nums">{ugx(amount)}</dd>
+                  </div>
+                ))}
+                <div className="flex items-center justify-between gap-4 pt-3 mt-1 border-t-2 border-brand-ink/20">
+                  <dt className="font-bold text-brand-ink">Total</dt>
+                  <dd className="font-extrabold text-brand-ink text-lg tabular-nums">{ugx(FEES_TOTAL)}</dd>
+                </div>
+              </dl>
+              <p className="text-gray-500 text-xs mt-3 leading-relaxed">
+                Your share capital makes you a part-owner of the SACCO, and the initial deposit opens your savings balance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Account types */}
-      <section id="accounts" className="section-pad bg-surface scroll-mt-28">
+      <section id="accounts" className="section-pad bg-tint scroll-mt-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <span className="section-label">Account opening</span>
           <h2 className="section-title mb-4">Choose Your Account Type</h2>

@@ -1,6 +1,7 @@
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Services from "./components/Services";
+import MsaccoBanner from "./components/MsaccoBanner";
 import WhyUs from "./components/WhyUs";
 import LoanCalculator from "./components/LoanCalculator";
 import News from "./components/News";
@@ -15,6 +16,7 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
+      <MsaccoBanner />
       <WhyUs />
       <LoanCalculator />
       <News />

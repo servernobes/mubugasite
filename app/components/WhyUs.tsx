@@ -36,19 +36,22 @@ export default function WhyUs() {
           <span className="section-label">Why Mubuga SACCO</span>
           <h2 className="section-title mx-auto max-w-xl">Why Choose Mubuga SACCO?</h2>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {/* One reason per row */}
+        <ul className="max-w-4xl mx-auto flex flex-col gap-2.5">
           {reasons.map((r) => (
-            <div key={r.title} className="bg-surface rounded-xl border border-line p-6">
-              <div className="w-10 h-10 bg-brand/10 rounded-lg flex items-center justify-center mb-4">
+            <li key={r.title} className="flex items-start gap-3 sm:gap-4 bg-surface rounded-xl border border-line px-4 sm:px-5 py-3.5">
+              <span className="w-10 h-10 shrink-0 bg-brand/10 rounded-lg flex items-center justify-center">
                 <svg className="w-5 h-5 text-brand-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={r.icon}/>
                 </svg>
-              </div>
-              <h3 className="font-bold text-brand-ink mb-2">{r.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{r.desc}</p>
-            </div>
+              </span>
+              <span className="flex-1 min-w-0">
+                <span className="block font-bold text-brand-ink text-sm sm:text-base">{r.title}</span>
+                <span className="block text-gray-500 text-xs sm:text-sm leading-relaxed mt-0.5">{r.desc}</span>
+              </span>
+            </li>
           ))}
-        </div>
+        </ul>
 
         {/* Membership CTA */}
         <div className="mt-10 md:mt-14 bg-brand rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">

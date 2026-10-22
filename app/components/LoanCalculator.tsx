@@ -3,6 +3,39 @@ import { useState, useMemo } from "react";
 
 type Method = "reducing" | "flat";
 
+// Typed input next to each slider. Shows commas (2,500,000) while not being edited,
+// accepts free typing, and corrects out-of-range values when the visitor leaves the box.
+function NumberBox({ id, value, onChange, unit, min, max, decimals }: {
+  id: string; value: number; onChange: (n: number) => void; unit: string; min: number; max: number; decimals: boolean;
+}) {
+  const [draft, setDraft] = useState<string | null>(null);   // null = not editing, show formatted value
+  const shown = draft ?? value.toLocaleString("en-US", { maximumFractionDigits: decimals ? 2 : 0 });
+
+  const commit = (text: string) => {
+    const n = Number(text.replace(/,/g, ""));
+    if (text.trim() === "" || Number.isNaN(n)) return;
+    onChange(Math.min(Math.max(n, min), max));
+  };
+
+  return (
+    <div className="flex items-center gap-1.5 bg-surface border border-line rounded-lg px-2.5 py-1.5 focus-within:border-brand-ink focus-within:ring-2 focus-within:ring-brand/15">
+      <input id={id} type="text" inputMode={decimals ? "decimal" : "numeric"} autoComplete="off"
+        value={shown}
+        onFocus={() => setDraft(shown.replace(/,/g, ""))}
+        onChange={(e) => {
+          const t = e.target.value.replace(decimals ? /[^\d.]/g : /[^\d]/g, "");
+          setDraft(t);
+          const n = Number(t);
+          if (t !== "" && !Number.isNaN(n) && n >= min && n <= max) onChange(n);   // live update while valid
+        }}
+        onBlur={() => { if (draft !== null) commit(draft); setDraft(null); }}
+        onKeyDown={(e) => { if (e.key === "Enter") (e.target as HTMLInputElement).blur(); }}
+        className="w-28 sm:w-32 bg-transparent text-right text-brand-ink font-bold text-sm outline-none tabular-nums" />
+      <span className="text-gray-500 text-xs font-semibold">{unit}</span>
+    </div>
+  );
+}
+
 export default function LoanCalculator() {
   const [amount, setAmount] = useState(1000000);
   const [rate, setRate] = useState(1.8);
@@ -59,20 +92,23 @@ export default function LoanCalculator() {
                   <p className="text-xs text-gray-400 mt-1.5">Select the method applicable to your loan. Confirm with SACCO staff.</p>
                 </div>
 
+                {/* Each value can be typed in the box or set with the slider; both stay in sync */}
                 {[
-                  { label: "Loan Amount (UGX)", val: fmt(amount), min: 100000, max: 50000000, step: 100000, value: amount, set: setAmount, lo: "100K", hi: "50M" },
-                  { label: "Monthly Interest Rate (%)", val: `${rate}%`, min: 0.5, max: 10, step: 0.5, value: rate, set: setRate, lo: "0.5%", hi: "10%" },
-                  { label: "Loan Term (months)", val: `${months} mo`, min: 1, max: 60, step: 1, value: months, set: setMonths, lo: "1 month", hi: "60 months" },
+                  { id: "amount", label: "Loan Amount", unit: "UGX", min: 100000, max: 50000000, typedMax: 1000000000, step: 100000, value: amount, set: setAmount, lo: "100K", hi: "50M", decimals: false },
+                  { id: "rate", label: "Monthly Interest Rate", unit: "%", min: 0.5, max: 10, typedMax: 20, step: 0.5, value: rate, set: setRate, lo: "0.5%", hi: "10%", decimals: true },
+                  { id: "months", label: "Loan Term", unit: "months", min: 1, max: 60, typedMax: 120, step: 1, value: months, set: setMonths, lo: "1 month", hi: "60 months", decimals: false },
                 ].map((f) => (
-                  <div key={f.label}>
-                    <div className="flex justify-between mb-2">
-                      <label className="text-sm font-semibold text-gray-700">{f.label}</label>
-                      <span className="text-brand-ink font-bold text-sm">{f.val}</span>
+                  <div key={f.id}>
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <label htmlFor={`calc-${f.id}`} className="text-sm font-semibold text-gray-700">{f.label}</label>
+                      <NumberBox id={`calc-${f.id}`} value={f.value} onChange={f.set} unit={f.unit}
+                        min={f.id === "rate" ? 0.1 : f.min} max={f.typedMax} decimals={f.decimals} />
                     </div>
-                    <input type="range" min={f.min} max={f.max} step={f.step} value={f.value}
-                      onChange={(e) => f.set(Number(e.target.value))} className="w-full accent-brand"/>
+                    <input type="range" min={f.min} max={f.max} step={f.step} value={Math.min(f.value, f.max)}
+                      onChange={(e) => f.set(Number(e.target.value))} className="w-full accent-brand"
+                      aria-label={`${f.label} slider`}/>
                     <div className="flex justify-between text-xs text-gray-400 mt-1">
-                      <span>{f.lo}</span><span>{f.hi}</span>
+                      <span>{f.lo}</span><span>{f.hi}{f.typedMax > f.max ? " (type more above)" : ""}</span>
                     </div>
                   </div>
                 ))}

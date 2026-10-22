@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ServicesTabs, { type ServiceTab } from "./ServicesTabs";
+import MsaccoAppButtons from "../components/MsaccoAppButtons";
 
 export const metadata: Metadata = { title: "Services" };
 
@@ -124,6 +125,8 @@ const tabs: ServiceTab[] = [
         MSACCO lets Mubuga SACCO members deposit savings, repay loans and pay school fees from an MTN or Airtel phone, any time,
         without travelling to the office. Every transaction is protected by your PIN and confirmed by SMS.
         <Codes />
+        <p className="text-gray-500 text-[11px] font-semibold uppercase tracking-wider mt-4 mb-2">Or use the MSACCO app</p>
+        <MsaccoAppButtons />
       </Intro>
     ),
     items: [

@@ -4,6 +4,7 @@ import MSACCOEnrollment from "../components/msacco/Enrollment";
 import MSACCOAgency from "../components/msacco/Agency";
 import MSACCOAccountHelp from "../components/msacco/AccountHelp";
 import MSACCOBenefits from "../components/msacco/Benefits";
+import MsaccoAppButtons from "../components/MsaccoAppButtons";
 
 export const metadata: Metadata = {
   title: "MSACCO — Mobile Banking",
@@ -53,6 +54,10 @@ export default function MSACCOPage() {
                   <p className="text-brand-ink font-extrabold text-base tracking-wider">MUBUG/230256</p>
                 </div>
               </div>
+              <div className="mt-5">
+                <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-2">Download the MSACCO app</p>
+                <MsaccoAppButtons />
+              </div>
             </div>
             {/* MSACCO icon panel */}
             <div className="hidden md:flex w-48 h-48 bg-surface border border-line rounded-3xl items-center justify-center shrink-0">
@@ -78,7 +83,7 @@ export default function MSACCOPage() {
       </div>
 
       {/* Tab navigation */}
-      <div className="bg-surface border-b border-line sticky top-[84px] lg:top-[100px] z-40">
+      <div className="bg-surface border-b border-line sticky top-[72px] lg:top-[84px] z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex gap-0 overflow-x-auto">
             {tabs.map((t) => (

@@ -43,29 +43,29 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 bg-surface border-b border-line shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[84px] lg:h-[100px]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-[72px] lg:h-[84px]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3 shrink-0">
-          <Image src="/musacco-logo.png" alt="Mubuga SACCO Ltd" width={128} height={128} className="h-16 lg:h-20 w-auto" priority/>
-          {/* Name text is hidden on 1024–1279px screens so all menu links fit */}
-          <div className="leading-tight hidden sm:block lg:hidden xl:block">
+          <Image src="/musacco-logo.png" alt="Mubuga SACCO Ltd" width={128} height={128} className="h-14 lg:h-16 w-auto" priority/>
+          {/* Name text shows on phones/tablets and very wide screens; hidden on laptops so all menu links fit */}
+          <div className="leading-tight hidden sm:block lg:hidden 2xl:block">
             <p className="text-brand-ink font-extrabold text-sm tracking-tight notranslate" translate="no">Mubuga SACCO</p>
             <p className="text-accent-ink text-[10px] font-bold tracking-widest uppercase">Ltd · Kisoro, Uganda</p>
           </div>
         </Link>
 
         {/* Desktop nav */}
-        <ul data-tour="menu" className="hidden lg:flex items-center gap-0.5">
+        <ul data-tour="menu" data-nav="desktop" className="hidden lg:flex items-center gap-0.5">
           {navLinks.map((l) => (
             <li key={l.label} className="relative"
               onMouseEnter={() => l.children && setDropdown(l.label)}
               onMouseLeave={() => setDropdown(null)}>
               <Link href={l.href} aria-current={isActive(path, l) && !l.children ? "page" : undefined}
-                className={`relative flex items-center gap-1 px-2 xl:px-2.5 py-2 text-[13px] xl:text-sm whitespace-nowrap rounded-md transition-colors hover:text-brand-ink hover:bg-soft ${
-                  isActive(path, l) ? "font-bold text-brand-ink bg-soft" : "font-medium text-ink"}`}>
+                className={`relative flex items-center gap-1 px-1.5 xl:px-2.5 py-2 text-[13px] xl:text-sm whitespace-nowrap rounded-md transition-colors hover:text-brand-ink hover:bg-soft ${
+                  isActive(path, l) ? "font-semibold text-brand-ink" : "font-medium text-ink"}`}>
                 {l.label}
                 {/* Underline marking the current page */}
-                {isActive(path, l) && <span aria-hidden className="absolute left-2 right-2 -bottom-[31px] h-[3px] rounded-full bg-accent" />}
+                {isActive(path, l) && <span aria-hidden className="absolute left-2 right-2 bottom-0.5 h-0.5 rounded-full bg-brand-ink/35" />}
                 {l.children && (
                   <svg className="w-3.5 h-3.5 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
@@ -77,7 +77,7 @@ export default function Navbar() {
                   {l.children.map((c) => (
                     <Link key={c.href} href={c.href} aria-current={isActive(path, c) ? "page" : undefined}
                       className={`block px-4 py-2.5 text-sm hover:bg-soft hover:text-brand-ink transition-colors ${
-                        isActive(path, c) ? "font-bold text-brand-ink bg-soft border-l-[3px] border-accent" : "text-ink"}`}>
+                        isActive(path, c) ? "font-semibold text-brand-ink" : "text-ink"}`}>
                       {c.label}
                     </Link>
                   ))}
@@ -88,19 +88,20 @@ export default function Navbar() {
         </ul>
 
         {/* Desktop CTA */}
-        <div className="hidden lg:flex items-center gap-2">
+        <div data-nav="desktop" className="hidden lg:flex items-center gap-2">
           <div data-tour="language"><LanguageSwitcher /></div>
           <div data-tour="theme"><ThemeToggle /></div>
-          <div data-tour="help"><TourButton /></div>
-          {/* Red button only on wide screens; "Contact Us" is also in the menu */}
+          {/* Help button from 1280px; on smaller laptops the menu needs the room */}
+          <div data-tour="help" className="hidden xl:block"><TourButton /></div>
+          {/* Red button only on very wide screens; "Contact Us" is also in the menu */}
           <Link href="/contact"
-            className="hidden xl:inline-block bg-accent hover:bg-accent-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
+            className="hidden 2xl:inline-block bg-accent hover:bg-accent-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
             Contact Us
           </Link>
         </div>
 
         {/* Mobile toggles */}
-        <div className="lg:hidden flex items-center gap-1.5 sm:gap-2">
+        <div data-nav="mobile" className="lg:hidden flex items-center gap-1.5 sm:gap-2">
         <div data-tour="language"><LanguageSwitcher /></div>
         <div data-tour="theme"><ThemeToggle /></div>
         <div data-tour="help"><TourButton /></div>
@@ -116,14 +117,14 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="lg:hidden border-t border-line bg-surface px-4 sm:px-6 pb-4 max-h-[75vh] overflow-y-auto">
+        <div data-nav="mobile-menu" className="lg:hidden border-t border-line bg-surface px-4 sm:px-6 pb-4 max-h-[75vh] overflow-y-auto">
           {navLinks.map((l) => (
             <div key={l.label}>
               <div className="flex items-center justify-between">
                 <Link href={l.href} onClick={() => !l.children && setOpen(false)}
                   aria-current={isActive(path, l) && !l.children ? "page" : undefined}
-                  className={`flex items-center gap-2 py-3 text-sm ${isActive(path, l) ? "font-bold text-brand-ink" : "font-semibold text-ink"}`}>
-                  {isActive(path, l) && <span aria-hidden className="w-1.5 h-5 rounded-full bg-accent" />}
+                  className={`flex items-center gap-2 py-3 text-sm ${isActive(path, l) ? "font-bold text-brand-ink" : "font-medium text-ink"}`}>
+                  {isActive(path, l) && <span aria-hidden className="w-1 h-4 rounded-full bg-brand-ink/35" />}
                   {l.label}
                 </Link>
                 {l.children && (
@@ -141,7 +142,7 @@ export default function Navbar() {
                   {l.children.map((c) => (
                     <Link key={c.href} href={c.href} onClick={() => setOpen(false)}
                       aria-current={isActive(path, c) ? "page" : undefined}
-                      className={`block py-2 text-sm hover:text-brand-ink ${isActive(path, c) ? "font-bold text-brand-ink" : "text-gray-500"}`}>
+                      className={`block py-2 text-sm hover:text-brand-ink ${isActive(path, c) ? "font-semibold text-brand-ink" : "text-gray-500"}`}>
                       {c.label}
                     </Link>
                   ))}

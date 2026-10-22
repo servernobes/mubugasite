@@ -279,7 +279,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "For VSLAs, associations and registered groups",
       "Safe, accountable place for group savings",
       "Transactions authorised by the group's signatories",
-      "Account terms and requirements to be confirmed with our office",
+      "Open with the group's documents, 2 passport photos and a national ID per signatory, and UGX 40,000",
     ],
     suitableFor: [
       "Existing VSLA groups",
@@ -287,7 +287,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "Associations, cooperatives and women or youth groups",
     ],
     faqs: [
-      { q: "What does our group need to open an account?", a: "Usually the group's registration or recognition documents, minutes naming the signatories and the signatories' identification. Confirm the list with our staff." },
+      { q: "What does our group need to open an account?", a: "The group's registration or recognition documents, minutes naming the signatories, two passport-size photographs and a national ID for each signatory, and UGX 40,000 (share capital 10,000, membership fee 20,000 and initial deposit 10,000)." },
       { q: "Must every group member be a SACCO member?", a: "Group membership and account requirements must be confirmed with SACCO staff." },
       { q: "How does the group withdraw money?", a: "Withdrawals are authorised by the group's appointed signatories. Confirm the procedure with our office." },
     ],
@@ -300,7 +300,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "Held in your own name",
       "Access to savings, loans and MSACCO mobile banking",
       "Opened at our Head Office in Mubuga or Kisoro Town Branch",
-      "Requirements and fees to be confirmed with our office",
+      "Open with 2 passport photos, national ID and UGX 40,000 (share capital, membership fee and initial deposit)",
     ],
     suitableFor: [
       "Adults joining Mubuga SACCO as individual members",
@@ -308,7 +308,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "Anyone who wants to save and access affordable credit",
     ],
     faqs: [
-      { q: "What do I need to open an Individual Account?", a: "Bring a valid national identification document. See our Membership page for the full list and confirm it with our staff." },
+      { q: "What do I need to open an Individual Account?", a: "Bring two passport-size photographs and your national ID, and pay UGX 40,000: share capital UGX 10,000, membership fee UGX 20,000 and an initial deposit of UGX 10,000." },
       { q: "Can I use MSACCO with my Individual Account?", a: "Yes. Once your account is open you can register for MSACCO on MTN or Airtel." },
     ],
   },
@@ -320,7 +320,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "For schools, churches, cooperatives and organisations",
       "School fees collection: parents pay fees straight into the school's account",
       "Parents can pay at our offices or through MSACCO",
-      "Account terms and requirements to be confirmed with our office",
+      "Open with the registration certificate, 2 passport photos and a national ID per signatory, and UGX 40,000",
     ],
     suitableFor: [
       "Schools collecting fees from parents",
@@ -328,7 +328,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "Cooperatives, NGOs and community organisations",
     ],
     faqs: [
-      { q: "What does an institution need to open an account?", a: "Usually the registration certificate, a resolution naming the authorised signatories and their identification. Confirm the list with our staff." },
+      { q: "What does an institution need to open an account?", a: "The registration certificate, a resolution naming the authorised signatories, two passport-size photographs and a national ID for each signatory, and UGX 40,000 (share capital 10,000, membership fee 20,000 and initial deposit 10,000)." },
       { q: "How does school fees collection work?", a: "Parents deposit fees into the school's account at our offices or through MSACCO, and the school receives them directly. Confirm setup details with our office." },
     ],
   },
@@ -348,6 +348,7 @@ export const SAVINGS_DETAILS: Record<string, SavingsDetail> = {
       "Families planning for a child's future education expenses",
     ],
     faqs: [
+      { q: "What do I need to open a Junior account?", a: "The child's birth certificate, two passport-size photographs of the child, the parent or guardian's national ID, and UGX 40,000 (share capital 10,000, membership fee 20,000 and initial deposit 10,000)." },
       { q: "At what age can a child hold their own account?", a: "Age requirements and transition arrangements must be confirmed with SACCO staff." },
       { q: "Who controls the account while the child is a minor?", a: "Account control arrangements must be confirmed with SACCO management when opening the account." },
     ],

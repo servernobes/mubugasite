@@ -28,7 +28,7 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
   const caption = slides[index]?.caption || DEFAULT_CAPTION;
 
   return (
-    <div className="relative h-full w-full overflow-hidden"
+    <div className="absolute inset-0 overflow-hidden"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}
       onTouchStart={(e) => { touchX.current = e.touches[0].clientX; setPaused(true); }}
       onTouchEnd={(e) => {
@@ -51,13 +51,13 @@ export default function HeroSlider({ slides }: { slides: Slide[] }) {
         ))}
       </div>
 
-      {/* Soft shade at the bottom so the caption card reads well on any photo */}
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/35 to-transparent" />
+      {/* Dark fade at the bottom so the white caption reads on any photo */}
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-3/5 bg-gradient-to-t from-black/65 via-black/25 to-transparent" />
 
-      {/* Caption card */}
-      <div className="absolute left-4 right-4 sm:left-5 sm:right-auto sm:max-w-sm bottom-10 bg-surface/90 backdrop-blur rounded-xl border border-line px-5 py-4 shadow-sm">
-        <p className="text-brand-ink font-bold text-base sm:text-lg">&ldquo;{caption}&rdquo;</p>
-        <p className="text-gray-500 text-sm mt-1">Mubuga SACCO Ltd · Kisoro</p>
+      {/* Caption, written on the photo */}
+      <div className="absolute left-5 right-5 sm:left-8 sm:right-16 bottom-10 sm:bottom-12 max-w-xl">
+        <p className="text-white font-bold text-lg sm:text-2xl lg:text-3xl leading-snug [text-shadow:0_1px_8px_rgba(0,0,0,0.35)]">&ldquo;{caption}&rdquo;</p>
+        <p className="text-white/80 text-sm mt-1.5">Mubuga SACCO Ltd · Kisoro</p>
       </div>
 
       {count > 1 && (

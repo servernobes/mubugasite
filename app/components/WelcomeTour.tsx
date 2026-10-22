@@ -15,7 +15,7 @@ type Step = {
 
 const STEPS: Step[] = [
   { title: "Welcome to Mubuga SACCO", body: "Let us show you around in a few quick steps: how to change the language and where to find what you need." },
-  { target: "language", title: "Choose your language", body: "Read this website in English, Rufumbira or Runyakitara. Pick one now, or change it any time with this button." },
+  { target: "language", title: "Choose your language", body: "Read this website in English, Rufumbira or Rukiga / Runyankore. Pick one now, or change it any time with this button." },
   { target: "menu", title: "Find your way", body: "Use the menu for Savings & Loans, Membership, Services (including MSACCO mobile banking), Branches and how to contact us." },
   { target: "theme", title: "Light or dark", body: "Tap here to switch between a light and a dark screen, whichever is easier on your eyes." },
   { target: "help", title: "Need help again?", body: "Tap the ? button any time to replay this tour." },
