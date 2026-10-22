@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Staff from "../components/Staff";
-import Governance from "../components/Governance";
 
 export const metadata: Metadata = { title: "About Us" };
 
@@ -23,8 +22,6 @@ export default function AboutPage() {
             {[
               ["Who We Are", "#who"],
               ["Vision & Mission", "#mission"],
-              ["Board of Directors", "#governance"],
-              ["Management", "#governance"],
               ["Our Team", "#team"],
             ].map(([label, href]) => (
               <a key={label} href={href}
@@ -95,11 +92,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Board of Directors & Top Management */}
-      <div id="governance" className="scroll-mt-28">
-        <Governance />
-      </div>
-
+      {/* Board of Directors are not shown publicly (members prefer to stay in the background) */}
       {/* Staff */}
       <div id="team" className="scroll-mt-28">
         <Staff />

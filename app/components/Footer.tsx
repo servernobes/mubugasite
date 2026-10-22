@@ -2,6 +2,9 @@ import { cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
+import SocialLinks, { SOCIAL_KEYS } from "./SocialLinks";
+
+// Contact details and social links (social_*) come from site_settings, edited in Admin → Site Text & Info.
 
 export default async function Footer() {
   "use cache";
@@ -9,7 +12,7 @@ export default async function Footer() {
   const supabase = createCachedClient();
 
   const { data: settingsData } = await supabase.from("site_settings").select("key, value")
-    .in("key", ["address", "pobox", "phone_primary", "phone_secondary", "email"]);
+    .in("key", ["address", "pobox", "phone_primary", "phone_secondary", "email", ...SOCIAL_KEYS]);
 
   const s: Record<string, string> = {};
   (settingsData ?? []).forEach((r) => { s[r.key] = r.value; });
@@ -38,7 +41,8 @@ export default async function Footer() {
             <p className="text-white/60 text-sm leading-relaxed mb-3">
               A member-owned savings and credit cooperative serving Nyakinama Sub-county and the wider Kisoro District community.
             </p>
-            <p className="text-gold text-xs font-semibold italic">"Development Through Rural Saving"</p>
+            <p className="text-gold text-xs font-semibold italic">&ldquo;Development Through Rural Saving&rdquo;</p>
+            <SocialLinks links={s} />
           </div>
 
           {/* Quick Links */}
