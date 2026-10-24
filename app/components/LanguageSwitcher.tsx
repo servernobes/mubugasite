@@ -92,16 +92,16 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
   const current = LANGUAGES.find((l) => l.code === lang)!;
 
   return (
-    <div ref={ref} className={`relative notranslate ${className}`} translate="no">
+    <div ref={ref} className={`relative ${className}`}>
       <button ref={buttonRef} type="button" onClick={() => setOpen(!open)} aria-haspopup="listbox" aria-expanded={open}
-        aria-label={`Language: ${current.label}. Change language`}
+        aria-label={`Translator: currently ${current.label}. Change language`}
         className={`group inline-flex items-center gap-1.5 h-9 pl-2.5 pr-2 rounded-full border text-xs sm:text-sm font-semibold transition-all ${
           open ? "border-brand-ink/40 bg-tint text-brand-ink shadow-sm" : "border-line text-gray-700 hover:text-brand-ink hover:bg-tint"}`}>
-        <LangMark code={current.code} short={current.short} size="sm" />
-        {/* Phones: English shows just the flag; other languages already show their letters */}
-        {current.code === "en" && <span className="sm:hidden">{current.short}</span>}
-        {/* Full name; the long "Rukiga / Runyankore" only from 1280px (its RK badge shows before that) */}
-        <span className={`hidden whitespace-nowrap ${current.label.length > 12 ? "xl:inline" : "sm:inline"}`}>{current.label}</span>
+        {/* Current language mark (flag / RF / RK, never translated) + the label "Translator", which is
+            translated with the rest of the page (and goes through the Rufumbira word swaps) */}
+        <span className="notranslate flex" translate="no"><LangMark code={current.code} short={current.short} size="sm" /></span>
+        {/* Hidden only on the narrowest phones (under 360px) so the navbar still fits */}
+        <span className="whitespace-nowrap max-[359px]:hidden">Translator</span>
         <svg className={`w-3.5 h-3.5 opacity-60 transition-transform duration-200 ${open ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7"/>
         </svg>
@@ -116,7 +116,7 @@ export default function LanguageSwitcher({ className = "" }: { className?: strin
           <p className="text-xs font-bold uppercase tracking-wider text-gray-500">Choose your language</p>
         </div>
 
-        <div className="px-2 pb-2">
+        <div className="px-2 pb-2 notranslate" translate="no">
           {LANGUAGES.map((l) => {
             const active = l.code === lang;
             return (

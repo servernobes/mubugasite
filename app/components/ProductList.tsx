@@ -2,6 +2,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { LOAN_DETAILS, SAVINGS_DETAILS, type FAQ } from "@/lib/product-details";
+import { loanIcon } from "@/lib/loan-icons";
 
 // Savings / loan products as cards: one column on phones, a grid on larger screens.
 // "+" opens the card across the full row and shows all of the product's details in place.
@@ -9,7 +10,6 @@ type Product = { id: string; slug: string; title: string; description: string };
 
 const ICONS = {
   savings: "M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2z",
-  loans:   "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z",
 };
 
 const COPY = {
@@ -121,7 +121,7 @@ export default function ProductList({ kind, items }: { kind: "savings" | "loans"
                     <div className="flex items-start gap-2.5 sm:gap-3 flex-1 min-w-0">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
                         <svg className="w-4 h-4 sm:w-5 sm:h-5 text-accent-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={ICONS[kind]}/>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={kind === "loans" ? loanIcon(p.slug) : ICONS.savings}/>
                         </svg>
                       </div>
                       <div className="flex-1 min-w-0">

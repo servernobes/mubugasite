@@ -1,13 +1,19 @@
+import { cacheTag } from "next/cache";
 import Link from "next/link";
 import MsaccoAppButtons from "./MsaccoAppButtons";
+import { BandBackdrop, getHomePhotos } from "./HomePhotos";
 
 // Homepage band right after Savings & Loans: bank on your phone via USSD or the MSACCO app.
-export default function MsaccoBanner() {
+export default async function MsaccoBanner() {
+  "use cache";
+  cacheTag("cms"); // cleared by /api/revalidate when the admin saves
+  const { msacco: photo } = await getHomePhotos(["msacco"]);   // Admin → Homepage Photos → MSACCO band photo
   return (
     <section id="msacco" className="section-pad bg-surface scroll-mt-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="rounded-2xl bg-brand overflow-hidden">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 p-6 sm:p-8 md:p-10 items-center">
+        <div className="relative rounded-2xl bg-brand overflow-hidden">
+          {photo && <BandBackdrop photo={photo} />}
+          <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-8 p-6 sm:p-8 md:p-10 items-center">
             <div className="lg:col-span-3">
               <div className="flex items-center gap-2 mb-3">
                 <span className="bg-accent text-white text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-lg notranslate" translate="no">MSACCO</span>

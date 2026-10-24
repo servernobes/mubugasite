@@ -3,16 +3,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
 import SocialLinks, { SOCIAL_KEYS } from "./SocialLinks";
+import { getHomePhotos } from "./HomePhotos";
+import { CookieSettingsLink } from "./CookieBanner";
 
-// Contact details and social links (social_*) come from site_settings, edited in Admin → Site Text & Info.
+// Contact details and social links (social_*, e.g. X and TikTok) come from site_settings, edited in Admin → Site Text & Info.
 
 export default async function Footer() {
   "use cache";
   cacheTag("site-settings", "cms"); // cleared by /api/revalidate when the admin saves
   const supabase = createCachedClient();
 
-  const { data: settingsData } = await supabase.from("site_settings").select("key, value")
-    .in("key", ["address", "pobox", "phone_primary", "phone_secondary", "email", ...SOCIAL_KEYS]);
+  const [{ data: settingsData }, photos] = await Promise.all([
+    supabase.from("site_settings").select("key, value")
+      .in("key", ["address", "pobox", "phone_primary", "phone_secondary", "email", ...SOCIAL_KEYS]),
+    // Footer background: Admin → Homepage Photos → Footer Photo, otherwise a slider photo
+    getHomePhotos(["footer", "hero"]),
+  ]);
+  const footerPhoto = photos.footer ?? photos.hero ?? null;
 
   const s: Record<string, string> = {};
   (settingsData ?? []).forEach((r) => { s[r.key] = r.value; });
@@ -24,8 +31,16 @@ export default async function Footer() {
   const email    = s.email           ?? "mubugasacco@gmail.com";
 
   return (
-    <footer className="bg-brand text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-6">
+    <footer className="relative overflow-hidden bg-brand text-white">
+      {/* Photo shows through at about 50% under the brand colour; a light dark layer keeps the text readable */}
+      {footerPhoto && (
+        <>
+          <Image src={footerPhoto.storage_url} alt="" fill sizes="100vw" className="object-cover" aria-hidden />
+          <div aria-hidden className="absolute inset-0 bg-brand/50" />
+          <div aria-hidden className="absolute inset-0 bg-black/30" />
+        </>
+      )}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
 
           {/* Brand */}
@@ -97,6 +112,7 @@ export default async function Footer() {
           <div className="flex items-center gap-4 flex-wrap">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
+            <CookieSettingsLink className="hover:text-white transition-colors" />
           </div>
         </div>
       </div>

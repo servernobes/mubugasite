@@ -21,7 +21,7 @@ export default async function MediaPage() {
     supabase.from("gallery_images")
       .select("id, storage_url, alt_text, caption")
       .eq("published", true)
-      .not("section", "in", "(hero,about)")   // homepage photos are managed separately
+      .in("section", ["gallery", "general"])   // homepage photos are managed separately
       .order("sort_order"),
   ]);
 

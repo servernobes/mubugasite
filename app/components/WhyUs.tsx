@@ -1,4 +1,6 @@
+import { cacheTag } from "next/cache";
 import Link from "next/link";
+import { BandBackdrop, getHomePhotos } from "./HomePhotos";
 
 const reasons = [
   {
@@ -28,7 +30,10 @@ const reasons = [
   },
 ];
 
-export default function WhyUs() {
+export default async function WhyUs() {
+  "use cache";
+  cacheTag("cms"); // cleared by /api/revalidate when the admin saves
+  const { community: photo } = await getHomePhotos(["community"]);   // Admin → Homepage Photos → Community banner photo
   return (
     <section className="section-pad bg-tint">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -54,15 +59,16 @@ export default function WhyUs() {
         </ul>
 
         {/* Membership CTA */}
-        <div className="mt-10 md:mt-14 bg-brand rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
-          <div>
+        <div className="relative overflow-hidden mt-10 md:mt-14 bg-brand rounded-2xl p-6 sm:p-8 md:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-5 md:gap-6">
+          {photo && <BandBackdrop photo={photo} />}
+          <div className="relative">
             <h3 className="text-xl sm:text-2xl font-extrabold text-white mb-2">Become Part of the Mubuga SACCO Community</h3>
             <p className="text-white/70 text-sm max-w-xl">
               Membership is open to eligible individuals in the community. Enquire with our office about requirements, registration and how to get started.
             </p>
           </div>
           <Link href="/contact?enquiry=membership"
-            className="w-full sm:w-auto shrink-0 text-center bg-accent hover:bg-accent-hover text-white font-bold px-7 py-3.5 rounded-lg transition-colors">
+            className="relative w-full sm:w-auto shrink-0 text-center bg-accent hover:bg-accent-hover text-white font-bold px-7 py-3.5 rounded-lg transition-colors">
             Membership Enquiry
           </Link>
         </div>

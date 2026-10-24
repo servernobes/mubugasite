@@ -41,7 +41,7 @@ export default async function Hero() {
     <section id="home" className="bg-surface">
       {/* Big photo slider on the left, words on the right (stacked on phones: photo first) */}
       <div className="grid grid-cols-1 lg:grid-cols-12">
-        <div className="relative lg:col-span-7 h-[58vh] min-h-[320px] max-h-[520px] sm:h-[460px] sm:max-h-none lg:h-[calc(100svh-120px)] lg:min-h-[560px] lg:max-h-[820px] bg-brand">
+        <div className="relative lg:col-span-7 h-[58vh] min-h-[320px] max-h-[520px] sm:h-[460px] sm:max-h-none lg:h-[calc(100svh-120px)] lg:min-h-[520px] lg:max-h-[700px] bg-brand">
           {slides.length > 0 ? <HeroSlider slides={slides} /> : <BrandPanel />}
         </div>
 

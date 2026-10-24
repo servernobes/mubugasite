@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { LANGUAGES, readLang, setLang } from "./LanguageSwitcher";
+import { getConsent } from "@/lib/consent";
 
 // First-visit guided tour of the navbar. Starts automatically once per browser
 // (localStorage "tour-done") and can be replayed with the "?" button (fires "start-tour").
@@ -42,10 +43,17 @@ export default function WelcomeTour() {
   useEffect(() => {
     let seen = true;
     try { seen = localStorage.getItem(STORE_KEY) === "1"; } catch {}
-    const t = seen ? undefined : setTimeout(() => setStep(0), 1200);
+    // First visit: wait until the cookie banner has been answered, so the two don't overlap
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const tryStart = () => {
+      if (seen || t || getConsent() === null) return;
+      t = setTimeout(() => setStep(0), 900);
+    };
+    tryStart();
+    window.addEventListener("consent-change", tryStart);
     const replay = () => setStep(0);
     window.addEventListener("start-tour", replay);
-    return () => { clearTimeout(t); window.removeEventListener("start-tour", replay); };
+    return () => { clearTimeout(t); window.removeEventListener("consent-change", tryStart); window.removeEventListener("start-tour", replay); };
   }, []);
 
   // Track where the highlighted element is
@@ -100,7 +108,8 @@ export default function WelcomeTour() {
       <div className="absolute inset-0" onClick={close} />
 
       {/* Speech bubble */}
-      <div className="absolute bg-surface border border-line rounded-2xl shadow-2xl p-5" style={bubbleStyle}>
+      {/* key={step}: each step draws fresh text, so on translated pages Google translates it as it appears */}
+      <div key={step} className="absolute bg-surface border border-line rounded-2xl shadow-2xl p-5" style={bubbleStyle}>
         {hasTarget && (
           <span aria-hidden className="absolute -top-2 w-4 h-4 rotate-45 bg-surface border-l border-t border-line"
             style={{ left: Math.min(Math.max(16, rect!.left + rect!.width / 2 - (bubbleStyle.left as number) - 8), (bubbleStyle.width as number) - 32) }} />

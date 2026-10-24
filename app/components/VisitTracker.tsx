@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { readLang } from "./LanguageSwitcher";
+import { useConsent } from "@/lib/consent";
 
 // Records one anonymous page view per page visited (page_views table, see supabase/analytics.sql).
 // Stored: page path, referring site (first page of a visit only), device type, language and a random
@@ -41,15 +42,17 @@ function source(): string | null {
 
 export default function VisitTracker() {
   const path = usePathname();
+  const consent = useConsent();   // only count visits after "Accept all" on the cookie banner
 
   useEffect(() => {
+    if (consent !== "all") return;
     if (!path || BOT.test(navigator.userAgent) || (navigator as Navigator & { webdriver?: boolean }).webdriver) return;
     if (location.hostname === "localhost" || location.hostname === "127.0.0.1") return;   // don't count local testing
     createClient()
       .from("page_views")
       .insert({ path: path.slice(0, 300), source: source(), visitor_id: visitorId(), device: device(), lang: readLang() })
       .then(() => {}, () => {});   // never interrupt the visitor if recording fails
-  }, [path]);
+  }, [path, consent]);
 
   return null;
 }

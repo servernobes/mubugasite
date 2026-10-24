@@ -8,6 +8,7 @@ import MobileCTA from "./components/MobileCTA";
 import ThemeStyle from "./components/ThemeStyle";
 import TranslateLoader from "./components/TranslateLoader";
 import VisitTracker from "./components/VisitTracker";
+import CookieBanner from "./components/CookieBanner";
 import { SITE_URL } from "@/lib/site-url";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -51,6 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <MobileCTA />
         <TranslateLoader />
         <VisitTracker />
+        <CookieBanner />
       </body>
     </html>
   );

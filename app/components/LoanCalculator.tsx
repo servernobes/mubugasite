@@ -118,16 +118,17 @@ export default function LoanCalculator() {
               <div className="flex flex-col gap-4 justify-center">
                 <div className="bg-brand rounded-xl p-5 sm:p-6 text-center">
                   <p className="text-white/70 text-sm mb-1">Estimated Monthly Payment</p>
-                  <p className="text-2xl sm:text-3xl font-extrabold text-gold break-all">{fmt(results.monthly)}</p>
+                  {/* Figures are marked "don't translate": on translated pages Google would otherwise keep showing old numbers */}
+                  <p className="notranslate text-2xl sm:text-3xl font-extrabold text-gold break-all" translate="no">{fmt(results.monthly)}</p>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="bg-surface rounded-xl border border-line p-3 sm:p-4 text-center">
                     <p className="text-gray-400 text-xs mb-1">Total Repayment</p>
-                    <p className="text-brand-ink font-bold text-sm sm:text-base break-all">{fmt(results.total)}</p>
+                    <p className="notranslate text-brand-ink font-bold text-sm sm:text-base break-all" translate="no">{fmt(results.total)}</p>
                   </div>
                   <div className="bg-surface rounded-xl border border-line p-3 sm:p-4 text-center">
                     <p className="text-gray-400 text-xs mb-1">Total Interest</p>
-                    <p className="text-accent-ink font-bold text-sm sm:text-base break-all">{fmt(results.interest)}</p>
+                    <p className="notranslate text-accent-ink font-bold text-sm sm:text-base break-all" translate="no">{fmt(results.interest)}</p>
                   </div>
                 </div>
                 <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">

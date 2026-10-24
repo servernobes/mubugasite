@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { mapEmbedSrc, directionsUrl } from "@/lib/maps";
+import MapEmbed from "./MapEmbed";
 
 type Branch = {
   id: string;
@@ -63,9 +64,8 @@ export default function Location({ branches }: Props) {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
             {/* Map */}
             <div className="lg:col-span-3 rounded-2xl overflow-hidden border-2 border-line h-64 sm:h-80 lg:h-[380px] shadow-sm">
-              <iframe key={activeId} title={`${branch.name} location map`}
-                src={mapEmbedSrc(branch)} width="100%" height="100%"
-                style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+              <MapEmbed key={activeId} title={`${branch.name} location map`}
+                src={mapEmbedSrc(branch)} directions={directionsUrl(branch)} />
             </div>
 
             {/* Info */}

@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
 import { mapEmbedSrc, directionsUrl } from "@/lib/maps";
+import MapEmbed from "../components/MapEmbed";
 
 export const metadata: Metadata = { title: "Branches & Offices" };
 
@@ -93,8 +94,7 @@ export default async function BranchesPage() {
                     </div>
                     {/* Map with location pin */}
                     <div className="mt-5 rounded-xl overflow-hidden h-64 sm:h-72 border border-line bg-tint">
-                      <iframe src={mapEmbedSrc(b)} title={`${b.name} location map`}
-                        width="100%" height="100%" style={{ border: 0 }} allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+                      <MapEmbed src={mapEmbedSrc(b)} title={`${b.name} location map`} directions={directionsUrl(b)} />
                     </div>
                     <a href={directionsUrl(b)} target="_blank" rel="noopener noreferrer"
                       className="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-brand-ink hover:text-accent-ink transition-colors">
