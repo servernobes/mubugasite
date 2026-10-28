@@ -62,7 +62,7 @@ export default function MSACCOAgency() {
             {terms.map((t) => (
               <div key={t.term} className="flex gap-3 pb-3 border-b border-line last:border-0 last:pb-0">
                 <div className="bg-brand text-white text-xs font-bold px-2.5 py-1 rounded-lg shrink-0 h-fit mt-0.5">{t.term}</div>
-                <p className="text-gray-500 text-xs leading-relaxed">{t.def}</p>
+                <p className="text-gray-500 text-xs leading-relaxed min-w-0 break-words">{t.def}</p>
               </div>
             ))}
           </div>

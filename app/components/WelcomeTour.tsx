@@ -1,25 +1,23 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import { LANGUAGES, readLang, setLang } from "./LanguageSwitcher";
-import { getConsent } from "@/lib/consent";
 
 // First-visit guided tour of the navbar. Starts automatically once per browser
-// (localStorage "tour-done") and can be replayed with the "?" button (fires "start-tour").
+// (localStorage "tour-done") and is not shown again after that.
 // Steps point at elements marked data-tour="…" in Navbar.tsx; desktop and mobile each have
 // their own copy, so the visible one is used.
 
 type Step = {
-  target?: "language" | "menu" | "theme" | "help";
+  target?: "language" | "menu";
   title: string;
   body: string;
 };
 
+// The language step comes last: picking a language there ends the tour and reloads the page.
 const STEPS: Step[] = [
-  { title: "Welcome to Mubuga SACCO", body: "Let us show you around in a few quick steps: how to change the language and where to find what you need." },
-  { target: "language", title: "Choose your language", body: "Read this website in English, Rufumbira or Rukiga / Runyankore. Pick one now, or change it any time with this button." },
+  { title: "Welcome to Mubuga SACCO", body: "Let us show you around in two quick steps: where to find what you need and how to change the language." },
   { target: "menu", title: "Find your way", body: "Use the menu for Savings & Loans, Membership, Services (including MSACCO mobile banking), Branches and how to contact us." },
-  { target: "theme", title: "Light or dark", body: "Tap here to switch between a light and a dark screen, whichever is easier on your eyes." },
-  { target: "help", title: "Need help again?", body: "Tap the ? button any time to replay this tour." },
+  { target: "language", title: "Choose your language", body: "Read this website in English, Rufumbira or Rukiga / Runyankore. Pick one now, or change it any time with the Translator button." },
 ];
 
 const STORE_KEY = "tour-done";
@@ -39,21 +37,13 @@ export default function WelcomeTour() {
     try { localStorage.setItem(STORE_KEY, "1"); } catch {}
   }, []);
 
-  // Auto-start on first visit; replay on request from the "?" button
+  // Auto-start on first visit only
   useEffect(() => {
     let seen = true;
     try { seen = localStorage.getItem(STORE_KEY) === "1"; } catch {}
-    // First visit: wait until the cookie banner has been answered, so the two don't overlap
-    let t: ReturnType<typeof setTimeout> | undefined;
-    const tryStart = () => {
-      if (seen || t || getConsent() === null) return;
-      t = setTimeout(() => setStep(0), 900);
-    };
-    tryStart();
-    window.addEventListener("consent-change", tryStart);
-    const replay = () => setStep(0);
-    window.addEventListener("start-tour", replay);
-    return () => { clearTimeout(t); window.removeEventListener("consent-change", tryStart); window.removeEventListener("start-tour", replay); };
+    if (seen) return;
+    const t = setTimeout(() => setStep(0), 1200);
+    return () => clearTimeout(t);
   }, []);
 
   // Track where the highlighted element is
@@ -161,16 +151,5 @@ export default function WelcomeTour() {
         </div>
       </div>
     </div>
-  );
-}
-
-/** The "?" button in the navbar that replays the tour */
-export function TourButton() {
-  return (
-    <button type="button" onClick={() => window.dispatchEvent(new Event("start-tour"))}
-      aria-label="Help: show me around" title="Help: show me around"
-      className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-line text-gray-600 hover:text-brand-ink hover:bg-tint transition-colors font-extrabold text-sm">
-      ?
-    </button>
   );
 }

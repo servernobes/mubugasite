@@ -115,10 +115,11 @@ body {
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  overflow-x: clip; /* no sideways scroll on phones (clip keeps sticky headers working) */
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 .section-pad { padding-top: 5rem; padding-bottom: 5rem; }
 

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Staff from "../components/Staff";
+import { CORE_VALUES, GOAL, MISSION, VISION } from "@/lib/sacco-profile";
 
 export const metadata: Metadata = { title: "About Us" };
 
@@ -21,7 +22,7 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-2">
             {[
               ["Who We Are", "#who"],
-              ["Vision & Mission", "#mission"],
+              ["Mission & Vision", "#mission"],
               ["Our Team", "#team"],
             ].map(([label, href]) => (
               <a key={label} href={href}
@@ -58,9 +59,9 @@ export default function AboutPage() {
               { label: "Kisoro Branch Tel", val: "0394 845 526" },
               { label: "Email", val: "mubugasacco@gmail.com" },
             ].map((r) => (
-              <div key={r.label} className="flex gap-4 py-3">
-                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider w-36 shrink-0 pt-0.5">{r.label}</p>
-                <p className="text-gray-700 text-sm">{r.val}</p>
+              <div key={r.label} className="flex flex-col gap-1 sm:flex-row sm:gap-4 py-3">
+                <p className="text-xs font-bold text-gray-400 uppercase tracking-wider sm:w-36 shrink-0 pt-0.5">{r.label}</p>
+                <p className="text-gray-700 text-sm min-w-0 break-words">{r.val}</p>
               </div>
             ))}
           </div>
@@ -72,22 +73,36 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <span className="section-label">Our Direction</span>
-            <h2 className="section-title">Vision, Mission & Values</h2>
+            <h2 className="section-title">Mission, Vision, Goals & Core Values</h2>
           </div>
+          {/* Official wording: lib/sacco-profile.ts */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
-              { title: "Vision", color: "border-brand-ink", bg: "bg-brand/10", tc: "text-brand-ink", content: "[Vision statement to be confirmed by management]" },
-              { title: "Mission", color: "border-accent-ink", bg: "bg-accent/10", tc: "text-accent-ink", content: "[Mission statement to be confirmed by management]" },
-              { title: "Core Values", color: "border-brand-ink", bg: "bg-brand/10", tc: "text-brand-ink", content: "[Core values to be confirmed by management — e.g. Integrity, Trust, Community, Accountability, Transparency]" },
+              { title: "Mission", color: "border-accent-ink", bg: "bg-accent/10", tc: "text-accent-ink", content: MISSION },
+              { title: "Vision", color: "border-brand-ink", bg: "bg-brand/10", tc: "text-brand-ink", content: VISION },
+              { title: "Goals", color: "border-gold-ink", bg: "bg-gold/25", tc: "text-gold-ink", content: GOAL },
             ].map((c) => (
               <div key={c.title} className={`bg-surface rounded-xl border-t-4 ${c.color} border border-line p-6`}>
                 <div className={`w-8 h-8 ${c.bg} rounded-lg flex items-center justify-center mb-3`}>
                   <span className={`${c.tc} font-extrabold text-xs`}>{c.title[0]}</span>
                 </div>
                 <h3 className={`font-bold ${c.tc} mb-2`}>{c.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed italic">{c.content}</p>
+                <p className="text-gray-600 text-sm leading-relaxed">{c.content}</p>
               </div>
             ))}
+          </div>
+          <div className="mt-6 bg-surface rounded-xl border-t-4 border-brand-ink border border-line p-6">
+            <h3 className="font-bold text-brand-ink mb-4">Core Values</h3>
+            <ul className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {CORE_VALUES.map((v) => (
+                <li key={v} className="flex items-start gap-3 bg-tint rounded-lg p-4 border border-line">
+                  <svg className="w-5 h-5 text-accent-ink mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span className="text-gray-700 text-sm leading-relaxed">{v}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>

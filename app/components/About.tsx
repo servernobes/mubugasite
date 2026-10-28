@@ -2,6 +2,7 @@ import { cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { MISSION, VISION } from "@/lib/sacco-profile";
 
 export default async function About() {
   "use cache";
@@ -57,7 +58,7 @@ export default async function About() {
             </div>
             {/* Values pills */}
             <div className="absolute -bottom-5 left-4 right-4 grid grid-cols-3 gap-2">
-              {["Trust", "Integrity", "Community"].map((v) => (
+              {["Honesty", "Teamwork", "Excellence"].map((v) => (
                 <div key={v} className="bg-surface border border-line rounded-lg py-2 text-center shadow-sm">
                   <p className="text-brand-ink font-bold text-xs">{v}</p>
                 </div>
@@ -87,7 +88,7 @@ export default async function About() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-brand-ink text-sm mb-1">Our Mission</h4>
-                <p className="text-gray-500 text-xs leading-relaxed">[To be confirmed by management]</p>
+                <p className="text-gray-500 text-xs leading-relaxed">{MISSION}</p>
               </div>
               <div className="bg-tint rounded-xl p-4 border border-line">
                 <div className="w-8 h-8 bg-gold/20 rounded-lg flex items-center justify-center mb-2">
@@ -97,7 +98,7 @@ export default async function About() {
                   </svg>
                 </div>
                 <h4 className="font-bold text-brand-ink text-sm mb-1">Our Vision</h4>
-                <p className="text-gray-500 text-xs leading-relaxed">[To be confirmed by management]</p>
+                <p className="text-gray-500 text-xs leading-relaxed">{VISION}</p>
               </div>
             </div>
             <Link href="/about" className="inline-flex items-center gap-2 text-brand-ink font-semibold text-sm hover:underline">

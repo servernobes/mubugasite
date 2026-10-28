@@ -4,7 +4,7 @@ import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
 import SocialLinks, { SOCIAL_KEYS } from "./SocialLinks";
 import { getHomePhotos } from "./HomePhotos";
-import { CookieSettingsLink } from "./CookieBanner";
+import { REG_NO } from "@/lib/sacco-profile";
 
 // Contact details and social links (social_*, e.g. X and TikTok) come from site_settings, edited in Admin → Site Text & Info.
 
@@ -50,7 +50,7 @@ export default async function Footer() {
                 className="h-16 w-auto rounded-xl bg-white p-1.5"/>
               <div>
                 <p className="font-extrabold text-base leading-tight">Mubuga SACCO Ltd</p>
-                <p className="text-white/50 text-xs">Kisoro, Uganda</p>
+                <p className="text-white/50 text-xs">Kisoro, Uganda · Reg. No. {REG_NO}</p>
               </div>
             </div>
             <p className="text-white/60 text-sm leading-relaxed mb-3">
@@ -112,7 +112,6 @@ export default async function Footer() {
           <div className="flex items-center gap-4 flex-wrap">
             <Link href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/terms-of-use" className="hover:text-white transition-colors">Terms of Use</Link>
-            <CookieSettingsLink className="hover:text-white transition-colors" />
           </div>
         </div>
       </div>

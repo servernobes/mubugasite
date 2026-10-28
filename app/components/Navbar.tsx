@@ -3,9 +3,8 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
-import WelcomeTour, { TourButton } from "./WelcomeTour";
+import WelcomeTour from "./WelcomeTour";
 
 // MSACCO is reached from the Services page, so it has no menu entry
 const moreLinks = [
@@ -90,9 +89,6 @@ export default function Navbar() {
         {/* Desktop CTA */}
         <div data-nav="desktop" className="hidden lg:flex items-center gap-2">
           <div data-tour="language"><LanguageSwitcher /></div>
-          <div data-tour="theme"><ThemeToggle /></div>
-          {/* Help button from 1280px; on smaller laptops the menu needs the room */}
-          <div data-tour="help" className="hidden xl:block"><TourButton /></div>
           {/* Red button only on very wide screens; "Contact Us" is also in the menu */}
           <Link href="/contact"
             className="hidden 2xl:inline-block bg-accent hover:bg-accent-hover text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors">
@@ -103,8 +99,6 @@ export default function Navbar() {
         {/* Mobile toggles */}
         <div data-nav="mobile" className="lg:hidden flex items-center gap-1.5 sm:gap-2">
         <div data-tour="language"><LanguageSwitcher /></div>
-        <div data-tour="theme"><ThemeToggle /></div>
-        <div data-tour="help"><TourButton /></div>
         <button data-tour="menu" onClick={() => setOpen(!open)} className="p-2 rounded-md text-brand-ink hover:bg-soft" aria-label="Toggle menu">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             {open
