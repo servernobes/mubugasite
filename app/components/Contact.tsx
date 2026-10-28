@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/client";
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", enquiry: "general", message: "", consent: false });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", enquiry: "general", message: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -14,7 +14,6 @@ export default function Contact() {
     if (!form.name.trim()) e.name = "Full name is required";
     if (!form.phone.trim()) e.phone = "Phone number is required";
     if (!form.message.trim()) e.message = "Please enter your message";
-    if (!form.consent) e.consent = "Please confirm your consent";
     return e;
   };
 
@@ -97,7 +96,7 @@ export default function Contact() {
                 </div>
                 <h3 className="font-bold text-brand-ink text-lg mb-2">Enquiry Received</h3>
                 <p className="text-gray-500 text-sm">Thank you for reaching out. A member of staff will be in touch with you.</p>
-                <button onClick={() => { setStatus("idle"); setForm({ name: "", phone: "", email: "", enquiry: "general", message: "", consent: false }); }}
+                <button onClick={() => { setStatus("idle"); setForm({ name: "", phone: "", email: "", enquiry: "general", message: "" }); }}
                   className="mt-5 text-brand-ink text-sm font-semibold hover:underline">
                   Send another enquiry
                 </button>
@@ -147,17 +146,10 @@ export default function Contact() {
                     className={`w-full border rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-brand-ink resize-none ${errors.message ? "border-red-400" : "border-line"} bg-surface`}/>
                   {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                 </div>
-                <div>
-                  <label className="flex items-start gap-2.5 cursor-pointer">
-                    <input type="checkbox" checked={form.consent}
-                      onChange={(e) => setForm({ ...form, consent: e.target.checked })}
-                      className="mt-0.5 accent-brand"/>
-                    <span className="text-xs text-gray-600 leading-relaxed">
-                      I consent to Mubuga SACCO using my contact details to respond to this enquiry. I have not submitted sensitive personal or financial information through this form.
-                    </span>
-                  </label>
-                  {errors.consent && <p className="text-red-500 text-xs mt-1">{errors.consent}</p>}
-                </div>
+                {/* Agreement is given by sending (no tick box) */}
+                <p className="text-xs text-gray-500 leading-relaxed">
+                  By sending, you agree that Mubuga SACCO may use your contact details to reply to this enquiry. Please do not include sensitive personal or financial information.
+                </p>
                 <button type="submit" disabled={status === "submitting"}
                   className="w-full bg-brand hover:bg-accent disabled:opacity-60 text-white font-bold py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
                   {status === "submitting" && (
