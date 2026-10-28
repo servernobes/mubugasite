@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import ServicesTabs, { type ServiceTab } from "./ServicesTabs";
 import MsaccoAppButtons from "../components/MsaccoAppButtons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Services" };
+export const metadata = pageMeta("/services", "Services", "Mubuga SACCO services in Kisoro: savings, loans, MSACCO mobile banking, agency banking and more for our members.");
 
 // Content comes from the MSACCO training material used on /msacco (app/components/msacco/*).
 

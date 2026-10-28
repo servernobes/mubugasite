@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Privacy Policy" };
+export const metadata = pageMeta("/privacy-policy", "Privacy Policy", "How Mubuga SACCO Ltd collects, uses and protects personal information on this website.");
 
 const sections = [
   { title: "1. Who We Are", body: "Mubuga SACCO Ltd is a savings and credit cooperative society registered in Uganda with its head office at Nyakinama Sub-county, Kisoro District. References to 'we', 'us' and 'our' in this policy refer to Mubuga SACCO Ltd." },

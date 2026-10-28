@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
 import Contact from "../components/Contact";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Contact Us" };
+export const metadata = pageMeta("/contact", "Contact Us", "Contact Mubuga SACCO Ltd in Kisoro, Uganda. Call 0394 841 360, email mubugasacco@gmail.com or visit us in Nyakinama Sub-county.");
 
 export default function ContactPage() {
   return (

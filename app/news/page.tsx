@@ -1,11 +1,11 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "News & Updates" };
+export const metadata = pageMeta("/news", "News & Updates", "Latest news, announcements and updates from Mubuga SACCO Ltd in Kisoro District, Uganda.");
 
 const categoryColors: Record<string, string> = {
   "Notice": "bg-brand/10 text-brand-ink",

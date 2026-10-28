@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import Staff from "../components/Staff";
 import { CORE_VALUES, GOAL, MISSION, VISION } from "@/lib/sacco-profile";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "About Us" };
+export const metadata = pageMeta("/about", "About Us", "About Mubuga SACCO Ltd: a member-owned savings and credit cooperative in Nyakinama, Kisoro District, founded in 2005. Our mission, vision, core values and team.");
 
 export default function AboutPage() {
   return (

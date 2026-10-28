@@ -1,12 +1,12 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
 import { mapEmbedSrc, directionsUrl } from "@/lib/maps";
 import MapEmbed from "../components/MapEmbed";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Branches & Offices" };
+export const metadata = pageMeta("/branches", "Branches & Offices", "Find Mubuga SACCO's head office in Nyakinama (Mubuga) and our Kisoro town branch, with maps, directions, phone numbers and opening hours.");
 
 export default async function BranchesPage() {
   "use cache";

@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import FAQ from "../components/FAQ";
 import Link from "next/link";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "FAQs" };
+export const metadata = pageMeta("/faqs", "FAQs", "Answers to common questions about joining Mubuga SACCO, opening a savings account, applying for a loan and using MSACCO mobile banking.");
 
 export default function FAQsPage() {
   return (

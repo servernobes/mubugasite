@@ -1,11 +1,11 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import ProductList from "../components/ProductList";
 import LoansIntro from "../components/LoansIntro";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Loan Products" };
+export const metadata = pageMeta("/loans", "Loan Products", "Loans from Mubuga SACCO in Kisoro: business, agricultural, school fees, development, home improvement, boda boda, medical and emergency loans for members.");
 
 export default async function LoansPage() {
   "use cache";

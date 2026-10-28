@@ -1,15 +1,12 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
 import { getHomePhotos } from "../components/HomePhotos";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Membership",
-  description: "How to join Mubuga SACCO Ltd, the benefits of membership and the types of accounts you can open.",
-};
+export const metadata = pageMeta("/membership", "Membership", "How to join Mubuga SACCO Ltd in Kisoro: requirements (passport photos, national ID, fees), benefits of membership and the accounts you can open.");
 
 const BENEFITS = [
   { title: "Safe savings", desc: "Keep your money secure in a member-owned cooperative and watch it grow.",

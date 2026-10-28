@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import LoanDetailTemplate from "../../components/LoanDetailTemplate";
 import { LOAN_DETAILS } from "@/lib/product-details";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Agricultural Loan" };
+export const metadata = pageMeta("/loans/agricultural", "Agricultural Loan", "Agricultural loans from Mubuga SACCO for farmers in Kisoro District: finance seeds, inputs, livestock and farm equipment.");
 
 export default function AgriculturalLoan() {
   return (

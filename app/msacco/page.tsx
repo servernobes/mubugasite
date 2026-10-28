@@ -1,16 +1,12 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import MSACCOEnrollment from "../components/msacco/Enrollment";
 import MSACCOAgency from "../components/msacco/Agency";
 import MSACCOAccountHelp from "../components/msacco/AccountHelp";
 import MSACCOBenefits from "../components/msacco/Benefits";
 import MsaccoAppButtons from "../components/MsaccoAppButtons";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "MSACCO — Mobile Banking",
-  description:
-    "Join MSACCO to access Mubuga SACCO services on your phone via MTN or Airtel. Deposits, withdrawals, loan repayments and more.",
-};
+export const metadata = pageMeta("/msacco", "MSACCO Mobile Banking", "MSACCO mobile banking from Mubuga SACCO: deposit, withdraw, check your balance and repay loans on your phone with MTN or Airtel, plus agent banking.");
 
 const tabs = [
   { id: "enroll", label: "How to Enroll" },

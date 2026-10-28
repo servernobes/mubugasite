@@ -14,12 +14,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const supabase = createCachedClient();
   const { data } = await supabase
     .from("news_articles")
-    .select("title, excerpt")
+    .select("title, excerpt, cover_url, published_at")
     .eq("slug", slug)
     .eq("published", true)
     .single();
   if (!data) return { title: "Article not found" };
-  return { title: data.title, description: data.excerpt };
+  return {
+    title: data.title,
+    description: data.excerpt,
+    alternates: { canonical: `/news/${slug}` },
+    openGraph: {
+      type: "article", title: data.title, description: data.excerpt ?? undefined, url: `/news/${slug}`,
+      ...(data.published_at ? { publishedTime: data.published_at } : {}),
+      ...(data.cover_url ? { images: [data.cover_url] } : {}),
+    },
+  };
 }
 
 export default async function ArticlePage({ params }: Props) {

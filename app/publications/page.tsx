@@ -1,12 +1,9 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Reports & Publications",
-  description: "Audited financial statements, annual reports, AGM documents and policies of Mubuga SACCO Ltd.",
-};
+export const metadata = pageMeta("/publications", "Reports & Publications", "Audited financial statements, annual reports, AGM documents and policies of Mubuga SACCO Ltd.");
 
 // Same category ids as the admin Documents page (mubug-admin/src/pages/Documents.jsx)
 const CATEGORIES = [

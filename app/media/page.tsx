@@ -1,13 +1,10 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Media Centre",
-  description: "Videos and photos from Mubuga SACCO Ltd and our community in Kisoro.",
-};
+export const metadata = pageMeta("/media", "Media Centre", "Videos and photos from Mubuga SACCO Ltd and our community in Kisoro, Uganda.");
 
 export default async function MediaPage() {
   "use cache";

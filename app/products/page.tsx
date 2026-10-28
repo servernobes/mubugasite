@@ -1,15 +1,11 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { createCachedClient } from "@/lib/supabase/cached";
 import ProductsTabs from "./ProductsTabs";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Products — Loans & Savings",
-  description:
-    "Explore all Mubuga SACCO products — savings accounts and loan products designed for members in Kisoro District.",
-};
+export const metadata = pageMeta("/products", "Savings & Loans", "Savings accounts and loan products from Mubuga SACCO Ltd for individuals, groups and institutions in Kisoro District, Uganda.");
 
 export default async function ProductsPage() {
   "use cache";

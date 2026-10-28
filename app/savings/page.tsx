@@ -1,10 +1,10 @@
 "use cache";
 import { cacheTag } from "next/cache";
-import type { Metadata } from "next";
 import ProductList from "../components/ProductList";
 import { createCachedClient } from "@/lib/supabase/cached";
+import { pageMeta } from "@/lib/seo";
 
-export const metadata: Metadata = { title: "Savings Products" };
+export const metadata = pageMeta("/savings", "Savings Products", "Savings accounts at Mubuga SACCO in Kisoro: ordinary, voluntary, fixed deposit, junior, individual, group and institutional accounts.");
 
 export default async function SavingsPage() {
   "use cache";
