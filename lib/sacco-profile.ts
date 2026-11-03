@@ -17,3 +17,11 @@ export const CORE_VALUES = [
   "Team work and flexibility for the best customer care and service",
   "Excellence and respect of individuals",
 ];
+
+// "Mubuga SACCO in numbers" on the About page (StatsCounter). Update when the figures change.
+export const STATS = [
+  { value: 10000, suffix: "+", label: "Members", text: "Farmers, traders, families, groups and institutions across Kisoro District save and borrow with us." },
+  { value: 2, suffix: "", label: "Branches", text: "Our head office in Nyakinama (Mubuga) and our branch in Kisoro Town." },
+  { value: 30, suffix: "+", label: "Staff", text: "A dedicated team serving our members every day, in the office and in the community." },
+  { value: 20, suffix: "+", label: "Years of Service", text: "Serving the people of Kisoro since 2005." },
+];

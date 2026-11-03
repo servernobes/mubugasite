@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Staff from "../components/Staff";
+import StatsCounter from "../components/StatsCounter";
 import { CORE_VALUES, GOAL, MISSION, VISION } from "@/lib/sacco-profile";
 import { pageMeta } from "@/lib/seo";
 
@@ -22,6 +23,7 @@ export default function AboutPage() {
           <div className="mt-6 flex flex-wrap gap-2">
             {[
               ["Who We Are", "#who"],
+              ["In Numbers", "#numbers"],
               ["Mission & Vision", "#mission"],
               ["Our Team", "#team"],
             ].map(([label, href]) => (
@@ -68,8 +70,22 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* In numbers (figures in lib/sacco-profile.ts) */}
+      <section id="numbers" className="section-pad bg-tint scroll-mt-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="text-center mb-10">
+            <span className="section-label">Our Reach</span>
+            <h2 className="section-title">Mubuga SACCO in Numbers</h2>
+            <p className="text-gray-600 mt-3 text-sm sm:text-base max-w-2xl mx-auto">
+              A member-owned cooperative that has grown with the community it serves.
+            </p>
+          </div>
+          <StatsCounter />
+        </div>
+      </section>
+
       {/* Vision / Mission / Values */}
-      <section id="mission" className="section-pad bg-tint scroll-mt-28">
+      <section id="mission" className="section-pad bg-surface scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-10">
             <span className="section-label">Our Direction</span>
