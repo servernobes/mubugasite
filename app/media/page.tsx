@@ -3,8 +3,12 @@ import { cacheTag } from "next/cache";
 import Image from "next/image";
 import { createCachedClient } from "@/lib/supabase/cached";
 import { pageMeta } from "@/lib/seo";
+import VideoPlayer from "../components/VideoPlayer";
 
 export const metadata = pageMeta("/media", "Media Centre", "Videos and photos from Mubuga SACCO Ltd and our community in Kisoro, Uganda.");
+
+const showDate = (d: string) =>
+  new Date(d).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "Africa/Kampala" });
 
 export default async function MediaPage() {
   "use cache";
@@ -12,14 +16,14 @@ export default async function MediaPage() {
   const supabase = createCachedClient();
   const [{ data: videoData }, { data: photoData }] = await Promise.all([
     supabase.from("videos")
-      .select("id, title, description, video_url, thumbnail_url")
+      .select("id, title, description, video_url, thumbnail_url, created_at")
       .eq("published", true)
-      .order("sort_order"),
+      .order("created_at", { ascending: false }),   // newest first; the date is set in Admin → Media Centre
     supabase.from("gallery_images")
-      .select("id, storage_url, alt_text, caption")
+      .select("id, storage_url, alt_text, caption, created_at")
       .eq("published", true)
       .in("section", ["gallery", "general"])   // homepage photos are managed separately
-      .order("sort_order"),
+      .order("created_at", { ascending: false }),
   ]);
 
   const videos = videoData ?? [];
@@ -61,12 +65,10 @@ export default async function MediaPage() {
               {videos.map((v) => (
                 <div key={v.id} className="bg-surface rounded-xl border border-line overflow-hidden hover:shadow-md transition-shadow">
                   <div className="relative bg-brand aspect-video w-full overflow-hidden">
-                    <video src={v.video_url} poster={v.thumbnail_url ?? undefined} controls preload="metadata"
-                      className="w-full h-full object-cover" aria-label={v.title}>
-                      Your browser does not support video playback.
-                    </video>
+                    <VideoPlayer url={v.video_url} poster={v.thumbnail_url} title={v.title} />
                   </div>
                   <div className="p-4">
+                    <p className="text-[11px] font-semibold text-accent-ink mb-1">{showDate(v.created_at)}</p>
                     <h3 className="font-bold text-brand-ink text-sm leading-snug mb-1">{v.title}</h3>
                     {v.description && <p className="text-gray-500 text-xs leading-relaxed">{v.description}</p>}
                   </div>
@@ -90,7 +92,10 @@ export default async function MediaPage() {
                       sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
                       className="object-cover group-hover:scale-105 transition-transform duration-300" />
                   </div>
-                  {p.caption && <p className="px-3 py-2 text-xs text-gray-600">{p.caption}</p>}
+                  <div className="px-3 py-2">
+                    <p className="text-[11px] font-semibold text-accent-ink">{showDate(p.created_at)}</p>
+                    {p.caption && <p className="text-xs text-gray-600 mt-0.5">{p.caption}</p>}
+                  </div>
                 </a>
               ))}
             </div>

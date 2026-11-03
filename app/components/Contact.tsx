@@ -1,11 +1,10 @@
 "use client";
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 type Status = "idle" | "submitting" | "success" | "error";
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", phone: "", email: "", enquiry: "general", message: "" });
+  const [form, setForm] = useState({ name: "", phone: "", email: "", enquiry: "general", message: "", website: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
 
@@ -24,22 +23,13 @@ export default function Contact() {
     setErrors({});
     setStatus("submitting");
 
-    const supabase = createClient();
-    const categoryMap: Record<string, string> = {
-      membership: "Membership",
-      loans: "Loans",
-      savings: "Savings",
-      services: "Other Services",
-      general: "General Enquiry",
-    };
-
-    const { error } = await supabase.from("enquiries").insert({
-      name:     form.name.trim(),
-      phone:    form.phone.trim(),
-      email:    form.email.trim() || null,
-      category: categoryMap[form.enquiry] ?? "General Enquiry",
-      message:  form.message.trim(),
-    });
+    // Saved for Admin → Enquiries and emailed to the SACCO (app/api/contact/route.ts)
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    }).catch(() => null);
+    const error = !res?.ok;
 
     if (error) {
       setStatus("error");
@@ -96,7 +86,7 @@ export default function Contact() {
                 </div>
                 <h3 className="font-bold text-brand-ink text-lg mb-2">Enquiry Received</h3>
                 <p className="text-gray-500 text-sm">Thank you for reaching out. A member of staff will be in touch with you.</p>
-                <button onClick={() => { setStatus("idle"); setForm({ name: "", phone: "", email: "", enquiry: "general", message: "" }); }}
+                <button onClick={() => { setStatus("idle"); setForm({ name: "", phone: "", email: "", enquiry: "general", message: "", website: "" }); }}
                   className="mt-5 text-brand-ink text-sm font-semibold hover:underline">
                   Send another enquiry
                 </button>
@@ -106,6 +96,10 @@ export default function Contact() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                {/* Hidden from people; spam bots fill it in and their message is dropped */}
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden
+                  value={form.website} onChange={(e) => setForm({ ...form, website: e.target.value })}
+                  className="absolute -left-[9999px] w-px h-px opacity-0" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-gray-600 mb-1">Full Name *</label>

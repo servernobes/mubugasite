@@ -1,5 +1,6 @@
 import { cacheTag } from "next/cache";
 import { createCachedClient } from "@/lib/supabase/cached";
+import VideoPlayer from "./VideoPlayer";
 
 export default async function Videos() {
   "use cache";
@@ -10,7 +11,7 @@ export default async function Videos() {
     .select("id, title, description, video_url, thumbnail_url")
     .eq("published", true)
     .eq("section", "homepage")
-    .order("sort_order");
+    .order("created_at", { ascending: false });   // newest first, as on the Media Centre page
 
   if (!videos?.length) return null;
 
@@ -28,16 +29,7 @@ export default async function Videos() {
           {videos.map((v) => (
             <div key={v.id} className="bg-tint rounded-xl border border-line overflow-hidden hover:shadow-md transition-shadow">
               <div className="relative bg-brand aspect-video w-full overflow-hidden">
-                <video
-                  src={v.video_url}
-                  poster={v.thumbnail_url ?? undefined}
-                  controls
-                  preload="metadata"
-                  className="w-full h-full object-cover"
-                  aria-label={v.title}
-                >
-                  Your browser does not support video playback.
-                </video>
+                <VideoPlayer url={v.video_url} poster={v.thumbnail_url} title={v.title} />
               </div>
               <div className="p-4">
                 <h3 className="font-bold text-brand-ink text-sm leading-snug mb-1">{v.title}</h3>
