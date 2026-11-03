@@ -33,6 +33,19 @@ export function pageMeta(path: string, title: string, description: string): Meta
   };
 }
 
+/** Site name Google shows above the link in search results (instead of the bare web address). */
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}/#website`,
+    name: "Mubuga SACCO",
+    alternateName: ["Mubuga SACCO Ltd", "MUSACCO"],
+    url: `${SITE_URL}/`,
+    publisher: { "@id": `${SITE_URL}/#organization` },
+  };
+}
+
 /** Business details for Google (shown in search results and alongside the Google Business Profile). */
 export function organizationJsonLd(sameAs: string[] = []) {
   return {
@@ -44,7 +57,7 @@ export function organizationJsonLd(sameAs: string[] = []) {
     slogan: "Development Through Rural Saving",
     description: MISSION,
     url: SITE_URL,
-    logo: `${SITE_URL}/musacco-logo.png`,
+    logo: `${SITE_URL}/icon.png`,
     image: `${SITE_URL}/opengraph-image`,
     foundingDate: "2005",
     identifier: `Reg. No. ${REG_NO}`,

@@ -9,11 +9,11 @@ import ThemeStyle from "./components/ThemeStyle";
 import TranslateLoader from "./components/TranslateLoader";
 import VisitTracker from "./components/VisitTracker";
 import { SITE_URL } from "@/lib/site-url";
-import { KEYWORDS, SITE_DESCRIPTION, SITE_NAME, organizationJsonLd } from "@/lib/seo";
+import { KEYWORDS, SITE_DESCRIPTION, SITE_NAME, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
-// Business details for Google; "<" escaped so the text can't close the script tag
+// Business details and site name for Google; "<" escaped so the text can't close the script tag
 const ORG_JSON_LD = JSON.stringify(
-  organizationJsonLd(["https://x.com/mubugasacco", "https://www.tiktok.com/@musacco11"]),
+  [organizationJsonLd(["https://x.com/mubugasacco", "https://www.tiktok.com/@musacco11"]), websiteJsonLd()],
 ).replace(/</g, "\\u003c");
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -34,13 +34,6 @@ export const metadata: Metadata = {
   openGraph: { siteName: SITE_NAME, locale: "en_UG", type: "website", title: SITE_NAME, description: SITE_DESCRIPTION },
   twitter: { card: "summary_large_image", site: "@mubugasacco", title: SITE_NAME, description: SITE_DESCRIPTION },
   robots: { index: true, follow: true },
-  icons: {
-    icon: [
-      { url: "/musacco-logo.png", type: "image/png" },
-    ],
-    shortcut: "/musacco-logo.png",
-    apple: "/musacco-logo.png",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -48,9 +41,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={geistSans.variable} suppressHydrationWarning>
       <head>
         <ThemeStyle />
-        <link rel="icon" href="/musacco-logo.png" type="image/png"/>
-        <link rel="shortcut icon" href="/musacco-logo.png" type="image/png"/>
-        <link rel="apple-touch-icon" href="/musacco-logo.png"/>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: ORG_JSON_LD }} />
       </head>
       <body className="min-h-full flex flex-col">
